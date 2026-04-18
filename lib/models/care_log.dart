@@ -118,6 +118,7 @@ class CareLog {
   );
 
   CareLog copyWith({
+    DateTime? dateTime,
     String? title,
     String? notes,
     double? value,
@@ -132,7 +133,7 @@ class CareLog {
       id: id,
       petId: petId,
       type: type,
-      dateTime: dateTime,
+      dateTime: dateTime ?? this.dateTime,
       title: title ?? this.title,
       notes: notes ?? this.notes,
       value: value ?? this.value,

@@ -35,6 +35,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
   double? _longitude;
   String? _locationName;
   bool _isLoadingLocation = false;
+  DateTime _logDateTime = DateTime.now();
 
   @override
   void initState() {
@@ -49,6 +50,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
       _latitude = log.latitude;
       _longitude = log.longitude;
       _locationName = log.locationName;
+      _logDateTime = log.dateTime;
     } else {
       _selectedType = widget.initialType ?? CareType.note;
     }
@@ -146,6 +148,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
     if (widget.isEditing) {
       final updated = widget.existingLog!.copyWith(
         title: title,
+        dateTime: _logDateTime,
         notes: _notesController.text.trim().isNotEmpty ? _notesController.text.trim() : null,
         value: double.tryParse(_valueController.text),
         unit: _selectedType == CareType.weightLog ? 'kg' : null,
@@ -160,7 +163,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         petId: petId,
         type: _selectedType,
-        dateTime: DateTime.now(),
+        dateTime: _logDateTime,
         title: title,
         notes: _notesController.text.trim().isNotEmpty ? _notesController.text.trim() : null,
         value: double.tryParse(_valueController.text),
@@ -268,6 +271,72 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
               ),
               const SizedBox(height: 20),
             ],
+
+            // Date & Time
+            _buildLabel('Date & Time'),
+            GestureDetector(
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: _logDateTime,
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime.now().add(const Duration(days: 365)),
+                  builder: (context, child) => Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme: const ColorScheme.light(
+                        primary: AppColors.primary,
+                        onPrimary: Colors.white,
+                        onSurface: AppColors.textDark,
+                      ),
+                    ),
+                    child: child!,
+                  ),
+                );
+                if (date != null && mounted) {
+                  final time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(_logDateTime),
+                    builder: (context, child) => Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme: const ColorScheme.light(
+                          primary: AppColors.primary,
+                          onPrimary: Colors.white,
+                          onSurface: AppColors.textDark,
+                        ),
+                      ),
+                      child: child!,
+                    ),
+                  );
+                  if (time != null) {
+                    setState(() {
+                      _logDateTime = DateTime(
+                        date.year, date.month, date.day,
+                        time.hour, time.minute,
+                      );
+                    });
+                  }
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.calendar_today_rounded, color: AppColors.primary, size: 20),
+                    const SizedBox(width: 12),
+                    Text(
+                      '${_logDateTime.day}/${_logDateTime.month}/${_logDateTime.year} ${_logDateTime.hour.toString().padLeft(2, '0')}:${_logDateTime.minute.toString().padLeft(2, '0')}',
+                      style: GoogleFonts.inter(fontSize: 15, color: AppColors.textDark),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
 
             // Title
             _buildLabel('Title'),

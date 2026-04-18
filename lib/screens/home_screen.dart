@@ -7,6 +7,7 @@ import '../models/pet_profile.dart';
 import '../models/care_log.dart';
 import '../services/storage_service.dart';
 import '../widgets/common_widgets.dart';
+import '../utils/quotes.dart';
 import 'daily_care_screen.dart';
 import 'health_screen.dart';
 import 'memory_screen.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   PetProfile? _profile;
   List<PetProfile> _allPets = [];
   List<CareLog> _todayLogs = [];
+  String _currentQuote = PetQuotes.getRandomQuote();
 
   @override
   void initState() {
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _profile = storage.getActivePet();
       _allPets = storage.getAllPetProfiles();
       _todayLogs = storage.getTodaysLogs();
+      _currentQuote = PetQuotes.getRandomQuote();
     });
   }
 
@@ -176,6 +179,35 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+
+          // Daily Wisdom Quote
+          if (_currentQuote.isNotEmpty)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+                child: PawCard(
+                  borderColor: AppColors.primary.withValues(alpha: 0.1),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.format_quote_rounded, color: AppColors.primary.withValues(alpha: 0.5), size: 24),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          _currentQuote,
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontStyle: FontStyle.italic,
+                            color: AppColors.textBrown,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
 
           // Pet Switcher (if multiple pets)
           if (_allPets.length > 1)
@@ -406,7 +438,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 12),
                   _buildFeatureCard(
                     icon: Icons.photo_album_rounded,
-                    title: 'Memory & Joy',
+                    title: 'Memories & Joy',
                     subtitle: 'Milestones, notes & beautiful moments',
                     color: AppColors.memory,
                     borderColor: AppColors.pastelPurple,
@@ -656,9 +688,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String _getGreeting() {
     final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good Morning 🌤️';
-    if (hour < 17) return 'Good Afternoon ☀️';
-    return 'Good Evening 🌙';
+    if (hour >= 5 && hour < 12) return 'Good Morning 🍌';
+    if (hour >= 12 && hour < 17) return 'Good Afternoon 🐶';
+    if (hour >= 17 && hour < 22) return 'Good Evening 🐾';
+    return 'Hi Night Owl 🦉';
   }
 
   IconData _getIconForType(CareType type) {
