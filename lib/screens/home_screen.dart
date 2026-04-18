@@ -27,11 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
   List<PetProfile> _allPets = [];
   List<CareLog> _todayLogs = [];
   String _currentQuote = PetQuotes.getRandomQuote();
+  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: _currentIndex);
     _loadData();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadData() async {
@@ -54,8 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() => _currentIndex = index);
+          if (index == 0) _loadData();
+        },
+        physics: const BouncingScrollPhysics(),
         children: screens,
       ),
       bottomNavigationBar: Container(
@@ -92,6 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
         setState(() => _currentIndex = index);
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
         if (index == 0) _loadData();
       },
       behavior: HitTestBehavior.opaque,

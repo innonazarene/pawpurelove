@@ -120,6 +120,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'health_fab',
         onPressed: _showAddHealthLog,
         icon: const Icon(Icons.add_rounded),
         label: const Text('Add Record'),

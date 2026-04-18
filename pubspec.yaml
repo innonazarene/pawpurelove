@@ -38,6 +38,9 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
+  web:
+    generate: true
+    image_path: "assets/logo.png"
   image_path: "assets/logo.png"
 
 flutter_native_splash:

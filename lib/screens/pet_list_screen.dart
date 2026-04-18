@@ -137,6 +137,7 @@ class _PetListScreenState extends State<PetListScreen> {
               },
             ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'pet_list_fab',
         onPressed: _addNewPet,
         icon: const Icon(Icons.add_rounded),
         label: const Text('Add Pet'),
