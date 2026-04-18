@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.pawpurelove.pawpurelove"
+        applicationId = "com.pawurelove.pawurelove"
         minSdk = flutter.minSdkVersion
         targetSdk = 35
         versionCode = flutter.versionCode

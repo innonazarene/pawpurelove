@@ -21,16 +21,16 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const PawPureLoveApp());
+  runApp(const PawureLoveApp());
 }
 
-class PawPureLoveApp extends StatelessWidget {
-  const PawPureLoveApp({super.key});
+class PawureLoveApp extends StatelessWidget {
+  const PawureLoveApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PawPureLove',
+      title: 'PawureLove',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       home: const SplashScreen(),

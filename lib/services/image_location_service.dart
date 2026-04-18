@@ -79,7 +79,7 @@ class ImageLocationService {
 
       // Save to app directory
       final appDir = await getApplicationDocumentsDirectory();
-      final imagesDir = Directory('${appDir.path}/pawpurelove_images');
+      final imagesDir = Directory('${appDir.path}/PawureLove_images');
       if (!await imagesDir.exists()) {
         await imagesDir.create(recursive: true);
       }
@@ -152,7 +152,7 @@ class ImageLocationService {
 
     try {
       final appDir = await getApplicationDocumentsDirectory();
-      final imagesDir = Directory('${appDir.path}/pawpurelove_images');
+      final imagesDir = Directory('${appDir.path}/PawureLove_images');
       if (!await imagesDir.exists()) {
         await imagesDir.create(recursive: true);
       }

@@ -127,10 +127,12 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ],
                       ),
-                      child: const Icon(
-                        Icons.pets,
-                        size: 56,
-                        color: Colors.white,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(32),
+                        child: Image.asset(
+                          'assets/logo.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   );
@@ -144,7 +146,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Column(
                   children: [
                     Text(
-                      'PawPureLove',
+                      'PawureLove',
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 36,
                         fontWeight: FontWeight.w900,

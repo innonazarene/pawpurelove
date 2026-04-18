@@ -26,13 +26,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   String _selectedGender = 'Male';
   int _ageYears = 1;
   int _ageMonths = 0;
-  double _weight = 10.0;
+  double _weight = 1.0;
   String? _photoPath;
 
   final List<_OnboardingPage> _pages = [
     _OnboardingPage(
       icon: Icons.pets,
-      title: 'Welcome to\nPawPureLove',
+      title: 'Welcome to\nPawureLove',
       subtitle: 'Your all-in-one companion for\nloving care of your furry best friend',
       color: AppColors.pastelPink,
     ),

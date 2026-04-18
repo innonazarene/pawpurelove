@@ -1,5 +1,5 @@
-name: pawpurelove
-description: "PawPureLove - Loving care for your furry best friend"
+name: pawurelove
+description: "PawureLove - Loving care for your furry best friend"
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -25,6 +25,24 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
+  rename: ^3.1.0
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/logo.png
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo.png"
+
+flutter_native_splash:
+  color: "#FFF3E8"
+  image: "assets/logo.png"
+  android_12:
+    image: "assets/logo.png"
+    color: "#FFF3E8"

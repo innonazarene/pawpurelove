@@ -24,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _selectedGender = 'Male';
   int _ageYears = 1;
   int _ageMonths = 0;
-  double _weight = 10.0;
+  double _weight = 1.0;
   String? _photoPath;
 
   bool get _isNew => widget.isNewPet || _profile == null;

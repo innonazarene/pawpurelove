@@ -45,9 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final screens = [
       _buildHomeTab(),
-      const DailyCareScreen(),
-      const HealthScreen(),
-      const MemoryScreen(),
+      DailyCareScreen(key: ValueKey('daily_${_profile?.id}')),
+      HealthScreen(key: ValueKey('health_${_profile?.id}')),
+      MemoryScreen(key: ValueKey('memory_${_profile?.id}')),
     ];
 
     return Scaffold(
