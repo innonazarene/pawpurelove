@@ -193,10 +193,12 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                   ),
                   children: [
                     TileLayer(
+                      key: ValueKey(_isSatellite),
                       urlTemplate: _isSatellite
                           ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
                           : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.innonazarene.pawpurelove',
+                      maxNativeZoom: _isSatellite ? 18 : 19, 
                     ),
                     MarkerLayer(
                       markers: _clusters.map((cluster) {
