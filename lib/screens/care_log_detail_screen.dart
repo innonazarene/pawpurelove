@@ -168,7 +168,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                             const SizedBox(width: 6),
                             Text(
                               log.type.label,
-                              style: GoogleFonts.inter(
+                              style: GoogleFonts.nunito(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
                                 color: color,
@@ -180,7 +180,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                       const SizedBox(width: 12),
                       Text(
                         DateFormat('MMM d, yyyy').format(log.dateTime),
-                        style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted),
+                        style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted),
                       ),
                     ],
                   ),
@@ -189,7 +189,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                   // Title
                   Text(
                     log.title ?? log.type.label,
-                    style: GoogleFonts.playfairDisplay(
+                    style: GoogleFonts.poppins(
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
                       color: AppColors.textBrown,
@@ -198,7 +198,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                   const SizedBox(height: 4),
                   Text(
                     DateFormat('EEEE, MMMM d, yyyy • h:mm a').format(log.dateTime),
-                    style: GoogleFonts.inter(fontSize: 14, color: AppColors.textLight),
+                    style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textLight),
                   ),
 
                   // Value (for weight)
@@ -220,7 +220,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                             children: [
                               Text(
                                 '${log.value!.toStringAsFixed(1)} ${log.unit ?? ''}',
-                                style: GoogleFonts.playfairDisplay(
+                                style: GoogleFonts.poppins(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w700,
                                   color: AppColors.textBrown,
@@ -228,7 +228,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                               ),
                               Text(
                                 'Recorded value',
-                                style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
+                                style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted),
                               ),
                             ],
                           ),
@@ -242,7 +242,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                     const SizedBox(height: 20),
                     Text(
                       'Notes',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.nunito(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: AppColors.textDark,
@@ -259,7 +259,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                       ),
                       child: Text(
                         log.notes!,
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.nunito(
                           fontSize: 15,
                           color: AppColors.textDark,
                           height: 1.6,
@@ -273,7 +273,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                     const SizedBox(height: 20),
                     Text(
                       'Location',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.nunito(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: AppColors.textDark,
@@ -320,7 +320,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                                 children: [
                                   Text(
                                     log.locationName ?? 'Saved Location',
-                                    style: GoogleFonts.inter(
+                                    style: GoogleFonts.nunito(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.textDark,
@@ -329,7 +329,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                                   const SizedBox(height: 2),
                                   Text(
                                     '${log.latitude!.toStringAsFixed(5)}, ${log.longitude!.toStringAsFixed(5)}',
-                                    style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
+                                    style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted),
                                   ),
                                 ],
                               ),
@@ -347,7 +347,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                                   const SizedBox(width: 4),
                                   Text(
                                     'Map',
-                                    style: GoogleFonts.inter(
+                                    style: GoogleFonts.nunito(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.health,
@@ -367,7 +367,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                     const SizedBox(height: 20),
                     Text(
                       'No photos attached',
-                      style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted),
+                      style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted),
                     ),
                   ],
 
@@ -439,7 +439,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                 ),
                 child: Text(
                   '${index + 1}/${paths.length}',
-                  style: GoogleFonts.inter(color: Colors.white, fontSize: 12),
+                  style: GoogleFonts.nunito(color: Colors.white, fontSize: 12),
                 ),
               ),
             ),

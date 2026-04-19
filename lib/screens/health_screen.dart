@@ -71,7 +71,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                 children: [
                   Text(
                     'Health & Wellness',
-                    style: GoogleFonts.playfairDisplay(
+                    style: GoogleFonts.poppins(
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
                       color: AppColors.textBrown,
@@ -80,7 +80,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                   const SizedBox(height: 4),
                   Text(
                     'Monitor ${_profile?.name ?? 'your pup'}\'s health journey',
-                    style: GoogleFonts.inter(fontSize: 14, color: AppColors.textLight),
+                    style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textLight),
                   ),
                 ],
               ),
@@ -96,8 +96,8 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                 unselectedLabelColor: AppColors.textMuted,
                 indicatorColor: AppColors.primary,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600),
-                unselectedLabelStyle: GoogleFonts.inter(fontSize: 13),
+                labelStyle: GoogleFonts.nunito(fontSize: 13, fontWeight: FontWeight.w600),
+                unselectedLabelStyle: GoogleFonts.nunito(fontSize: 13),
                 tabAlignment: TabAlignment.start,
                 tabs: const [
                   Tab(text: 'Weight'),
@@ -159,10 +159,10 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Current Weight', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted)),
+                    Text('Current Weight', style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted)),
                     Text(
                       '${_profile?.weight.toStringAsFixed(1) ?? '0.0'} kg',
-                      style: GoogleFonts.playfairDisplay(
+                      style: GoogleFonts.poppins(
                         fontSize: 28, fontWeight: FontWeight.w700, color: AppColors.textBrown,
                       ),
                     ),
@@ -191,7 +191,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                     titlesData: FlTitlesData(
                       leftTitles: AxisTitles(sideTitles: SideTitles(
                         showTitles: true, reservedSize: 40,
-                        getTitlesWidget: (value, meta) => Text('${value.toInt()}', style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+                        getTitlesWidget: (value, meta) => Text('${value.toInt()}', style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
                       )),
                       bottomTitles: AxisTitles(sideTitles: SideTitles(
                         showTitles: true,
@@ -200,7 +200,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                           if (i < 0 || i >= weightLogs.length) return const SizedBox();
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
-                            child: Text(DateFormat('MM/dd').format(weightLogs[i].dateTime), style: GoogleFonts.inter(fontSize: 10, color: AppColors.textMuted)),
+                            child: Text(DateFormat('MM/dd').format(weightLogs[i].dateTime), style: GoogleFonts.nunito(fontSize: 10, color: AppColors.textMuted)),
                           );
                         },
                       )),
@@ -232,7 +232,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                 children: [
                   Icon(Icons.show_chart_rounded, size: 48, color: AppColors.health.withValues(alpha: 0.3)),
                   const SizedBox(height: 12),
-                  Text('Log at least 2 weight entries to see a chart', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted), textAlign: TextAlign.center),
+                  Text('Log at least 2 weight entries to see a chart', style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted), textAlign: TextAlign.center),
                 ],
               ),
             ),
@@ -316,21 +316,21 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                       children: [
                         Text(
                           log.title ?? log.type.label,
-                          style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textDark),
+                          style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textDark),
                         ),
                         if (log.notes != null)
-                          Text(log.notes!, style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
+                          Text(log.notes!, style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted),
                             maxLines: 1, overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 4),
                         Row(
                           children: [
                             Text(DateFormat('MMM d, yyyy').format(log.dateTime),
-                              style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+                              style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
                             if (log.hasImages) ...[
                               const SizedBox(width: 8),
                               Icon(Icons.photo_rounded, size: 13, color: AppColors.textMuted.withValues(alpha: 0.6)),
                               const SizedBox(width: 2),
-                              Text('${log.imagePaths.length}', style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+                              Text('${log.imagePaths.length}', style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
                             ],
                             if (log.hasLocation) ...[
                               const SizedBox(width: 8),

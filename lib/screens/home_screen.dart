@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 4),
             Text(
               label,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.nunito(
                 fontSize: 11,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                 color: isActive ? AppColors.primary : AppColors.textMuted,
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         _getGreeting(),
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.nunito(
                           fontSize: 14,
                           color: AppColors.textLight,
                           fontWeight: FontWeight.w400,
@@ -203,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 4),
                       Text(
                         _profile?.name ?? 'Your Pup',
-                        style: GoogleFonts.playfairDisplay(
+                        style: GoogleFonts.poppins(
                           fontSize: 28,
                           fontWeight: FontWeight.w900,
                           color: AppColors.textBrown,
@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         child: Text(
                           _currentQuote,
-                          style: GoogleFonts.inter(
+                          style: GoogleFonts.nunito(
                             fontSize: 13,
                             fontStyle: FontStyle.italic,
                             color: AppColors.textBrown,
@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Icon(Icons.add_rounded, size: 18, color: AppColors.primary.withValues(alpha: 0.6)),
                                 const SizedBox(width: 6),
-                                Text('Add', style: GoogleFonts.inter(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w500)),
+                                Text('Add', style: GoogleFonts.nunito(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w500)),
                               ],
                             ),
                           ),
@@ -326,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(width: 8),
                               Text(
                                 pet.name,
-                                style: GoogleFonts.inter(
+                                style: GoogleFonts.nunito(
                                   fontSize: 13,
                                   fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                                   color: isActive ? AppColors.primary : AppColors.textDark,
@@ -595,7 +595,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Text(
                   '${_pendingSchedules.length}',
-                  style: GoogleFonts.inter(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.nunito(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -624,9 +624,9 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pending Reminders', style: GoogleFonts.playfairDisplay(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textBrown)),
+            Text('Pending Reminders', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textBrown)),
             const SizedBox(height: 8),
-            Text('Mark these routines as completed.', style: GoogleFonts.inter(fontSize: 14, color: AppColors.textMuted)),
+            Text('Mark these routines as completed.', style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textMuted)),
             const SizedBox(height: 24),
             ..._pendingSchedules.map((schedule) {
               return Padding(
@@ -649,9 +649,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(schedule.title, style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.textDark)),
+                          Text(schedule.title, style: GoogleFonts.nunito(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.textDark)),
                           const SizedBox(height: 2),
-                          Text('Due: ${DateFormat.yMMMd().add_jm().format(schedule.nextScheduledDate)}', style: GoogleFonts.inter(color: AppColors.error, fontSize: 12, fontWeight: FontWeight.w500)),
+                          Text('Due: ${DateFormat.yMMMd().add_jm().format(schedule.nextScheduledDate)}', style: GoogleFonts.nunito(color: AppColors.error, fontSize: 12, fontWeight: FontWeight.w500)),
                         ],
                       ),
                     ),
@@ -667,7 +667,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.pop(context);
                         _acceptSchedule(schedule);
                       },
-                      child: Text('Done', style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 13)),
+                      child: Text('Done', style: GoogleFonts.nunito(fontWeight: FontWeight.w600, fontSize: 13)),
                     ),
                   ],
                 ),
@@ -822,7 +822,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Text(
                   _profile!.name,
-                  style: GoogleFonts.playfairDisplay(
+                  style: GoogleFonts.poppins(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textBrown,
@@ -831,7 +831,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 4),
                 Text(
                   '${_profile!.breed} • ${_profile!.ageDisplay}',
-                  style: GoogleFonts.inter(fontSize: 13, color: AppColors.textLight),
+                  style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textLight),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -874,7 +874,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Icon(icon, size: 14, color: AppColors.primary),
           const SizedBox(width: 4),
-          Text(text, style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.textDark)),
+          Text(text, style: GoogleFonts.nunito(fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.textDark)),
         ],
       ),
     );
@@ -908,9 +908,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textDark)),
+                Text(title, style: GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textDark)),
                 const SizedBox(height: 2),
-                Text(subtitle, style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted)),
+                Text(subtitle, style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted)),
               ],
             ),
           ),

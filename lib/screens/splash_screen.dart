@@ -137,7 +137,7 @@ class _SplashScreenState extends State<SplashScreen>
                   children: [
                     Text(
                       'PawureLove',
-                      style: GoogleFonts.playfairDisplay(
+                      style: GoogleFonts.poppins(
                         fontSize: 36,
                         fontWeight: FontWeight.w900,
                         color: AppColors.textBrown,
@@ -147,7 +147,7 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(height: 8),
                     Text(
                       'Loving care for your furry best friend',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.nunito(
                         fontSize: 15,
                         color: AppColors.textLight,
                         fontWeight: FontWeight.w400,

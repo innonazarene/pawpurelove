@@ -70,61 +70,61 @@ class AppTheme {
         onSurface: AppColors.textDark,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      textTheme: GoogleFonts.interTextTheme().copyWith(
-        displayLarge: GoogleFonts.playfairDisplay(
+      textTheme: GoogleFonts.nunitoTextTheme().copyWith(
+        displayLarge: GoogleFonts.poppins(
           fontSize: 32,
           fontWeight: FontWeight.w900,
           color: AppColors.textBrown,
           letterSpacing: -0.5,
         ),
-        displayMedium: GoogleFonts.playfairDisplay(
+        displayMedium: GoogleFonts.poppins(
           fontSize: 26,
           fontWeight: FontWeight.w700,
           color: AppColors.textBrown,
         ),
-        displaySmall: GoogleFonts.playfairDisplay(
+        displaySmall: GoogleFonts.poppins(
           fontSize: 22,
           fontWeight: FontWeight.w700,
           color: AppColors.textBrown,
         ),
-        headlineMedium: GoogleFonts.inter(
+        headlineMedium: GoogleFonts.nunito(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: AppColors.textDark,
         ),
-        headlineSmall: GoogleFonts.inter(
+        headlineSmall: GoogleFonts.nunito(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: AppColors.textDark,
         ),
-        titleLarge: GoogleFonts.inter(
+        titleLarge: GoogleFonts.nunito(
           fontSize: 18,
           fontWeight: FontWeight.w500,
           color: AppColors.textDark,
         ),
-        titleMedium: GoogleFonts.inter(
+        titleMedium: GoogleFonts.nunito(
           fontSize: 16,
           fontWeight: FontWeight.w500,
           color: AppColors.textDark,
         ),
-        bodyLarge: GoogleFonts.inter(
+        bodyLarge: GoogleFonts.nunito(
           fontSize: 16,
           fontWeight: FontWeight.w400,
           color: AppColors.textDark,
           height: 1.6,
         ),
-        bodyMedium: GoogleFonts.inter(
+        bodyMedium: GoogleFonts.nunito(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.textLight,
           height: 1.5,
         ),
-        bodySmall: GoogleFonts.inter(
+        bodySmall: GoogleFonts.nunito(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.textMuted,
         ),
-        labelLarge: GoogleFonts.inter(
+        labelLarge: GoogleFonts.nunito(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: Colors.white,
@@ -136,7 +136,7 @@ class AppTheme {
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: AppColors.textDark,
-        titleTextStyle: GoogleFonts.playfairDisplay(
+        titleTextStyle: GoogleFonts.poppins(
           fontSize: 22,
           fontWeight: FontWeight.w700,
           color: AppColors.textBrown,
@@ -159,7 +159,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: GoogleFonts.nunito(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -191,11 +191,11 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.primary, width: 2),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        labelStyle: GoogleFonts.inter(
+        labelStyle: GoogleFonts.nunito(
           color: AppColors.textLight,
           fontSize: 14,
         ),
-        hintStyle: GoogleFonts.inter(
+        hintStyle: GoogleFonts.nunito(
           color: AppColors.textMuted,
           fontSize: 14,
         ),
@@ -218,7 +218,7 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.pastelPink.withValues(alpha: 0.3),
         selectedColor: AppColors.primary,
-        labelStyle: GoogleFonts.inter(fontSize: 13),
+        labelStyle: GoogleFonts.nunito(fontSize: 13),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),

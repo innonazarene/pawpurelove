@@ -84,7 +84,7 @@ class _SchedulesScreenState extends State<SchedulesScreen> {
         },
         backgroundColor: AppColors.primary,
         icon: const Icon(Icons.add_rounded, color: Colors.white),
-        label: Text('Add Reminder', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: Colors.white)),
+        label: Text('Add Reminder', style: GoogleFonts.nunito(fontWeight: FontWeight.w600, color: Colors.white)),
       ),
     );
   }
@@ -105,12 +105,12 @@ class _SchedulesScreenState extends State<SchedulesScreen> {
           const SizedBox(height: 24),
           Text(
             'No schedules set',
-            style: GoogleFonts.playfairDisplay(fontSize: 24, fontWeight: FontWeight.w700, color: AppColors.textBrown),
+            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700, color: AppColors.textBrown),
           ),
           const SizedBox(height: 8),
           Text(
             'Add routines, vaccinations, and other reminders.',
-            style: GoogleFonts.inter(fontSize: 15, color: AppColors.textMuted),
+            style: GoogleFonts.nunito(fontSize: 15, color: AppColors.textMuted),
             textAlign: TextAlign.center,
           ),
         ],
@@ -150,7 +150,7 @@ class _SchedulesScreenState extends State<SchedulesScreen> {
                     children: [
                       Text(
                         schedule.title,
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.nunito(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: schedule.isActive ? AppColors.textDark : Colors.grey,
@@ -164,7 +164,7 @@ class _SchedulesScreenState extends State<SchedulesScreen> {
                           const SizedBox(width: 4),
                           Text(
                             '$timeFormat • ${schedule.frequency.label}',
-                            style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted),
+                            style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted),
                           ),
                         ],
                       ),

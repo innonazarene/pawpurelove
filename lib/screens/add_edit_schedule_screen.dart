@@ -138,19 +138,19 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
               onSurface: AppColors.textDark,
             ),
             timePickerTheme: TimePickerThemeData(
-              hourMinuteTextStyle: GoogleFonts.inter(
+              hourMinuteTextStyle: GoogleFonts.nunito(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
               ),
-              dialTextStyle: GoogleFonts.inter(
+              dialTextStyle: GoogleFonts.nunito(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
-              dayPeriodTextStyle: GoogleFonts.inter(
+              dayPeriodTextStyle: GoogleFonts.nunito(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),
-              helpTextStyle: GoogleFonts.inter(
+              helpTextStyle: GoogleFonts.nunito(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 1.2,
@@ -158,7 +158,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                textStyle: GoogleFonts.inter(
+                textStyle: GoogleFonts.nunito(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
@@ -255,7 +255,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
                     ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
                     : Text(
                         widget.editSchedule == null ? 'Save Schedule' : 'Update Schedule',
-                        style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600),
+                        style: GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
               ),
             ),
@@ -268,7 +268,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
   Widget _buildLabel(String text) {
     return Text(
       text,
-      style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textDark),
+      style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textDark),
     );
   }
 
@@ -284,7 +284,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
         maxLines: maxLines,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: GoogleFonts.inter(color: AppColors.textMuted, fontSize: 14),
+          hintStyle: GoogleFonts.nunito(color: AppColors.textMuted, fontSize: 14),
           prefixIcon: maxLines == 1 ? Icon(icon, color: AppColors.primary.withValues(alpha: 0.6)) : null,
           border: InputBorder.none,
           contentPadding: EdgeInsets.all(maxLines == 1 ? 16 : 20),
@@ -313,7 +313,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
                 children: [
                   Icon(_getIconForType(type), size: 20, color: _getColorForType(type)),
                   const SizedBox(width: 12),
-                  Text(type.label, style: GoogleFonts.inter(fontSize: 15, color: AppColors.textDark)),
+                  Text(type.label, style: GoogleFonts.nunito(fontSize: 15, color: AppColors.textDark)),
                 ],
               ),
             );
@@ -342,7 +342,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
           items: ScheduleFrequency.values.map((freq) {
             return DropdownMenuItem(
               value: freq,
-              child: Text(freq.label, style: GoogleFonts.inter(fontSize: 15, color: AppColors.textDark)),
+              child: Text(freq.label, style: GoogleFonts.nunito(fontSize: 15, color: AppColors.textDark)),
             );
           }).toList(),
           onChanged: (val) {
@@ -371,7 +371,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
             Expanded(
               child: Text(
                 text,
-                style: GoogleFonts.inter(fontSize: 15, color: AppColors.textDark),
+                style: GoogleFonts.nunito(fontSize: 15, color: AppColors.textDark),
               ),
             ),
           ],

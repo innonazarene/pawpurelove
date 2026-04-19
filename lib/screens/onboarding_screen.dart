@@ -148,7 +148,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPressed: _skipToSetup,
                   child: Text(
                     'Skip',
-                    style: GoogleFonts.inter(
+                    style: GoogleFonts.nunito(
                       color: AppColors.textMuted,
                       fontWeight: FontWeight.w500,
                     ),
@@ -182,7 +182,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const SizedBox(height: 48),
                         Text(
                           page.title,
-                          style: GoogleFonts.playfairDisplay(
+                          style: GoogleFonts.poppins(
                             fontSize: 32,
                             fontWeight: FontWeight.w900,
                             color: AppColors.textBrown,
@@ -193,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const SizedBox(height: 16),
                         Text(
                           page.subtitle,
-                          style: GoogleFonts.inter(
+                          style: GoogleFonts.nunito(
                             fontSize: 16,
                             color: AppColors.textLight,
                             height: 1.6,
@@ -312,12 +312,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(height: 8),
                     Text(
                       _photoPath != null ? 'Tap to change photo' : 'Add a photo',
-                      style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
+                      style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted),
                     ),
                     const SizedBox(height: 16),
                     Text(
                       'Set Up Your Dog\'s Profile',
-                      style: GoogleFonts.playfairDisplay(
+                      style: GoogleFonts.poppins(
                         fontSize: 26,
                         fontWeight: FontWeight.w900,
                         color: AppColors.textBrown,
@@ -326,7 +326,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(height: 8),
                     Text(
                       'Tell us about your furry friend',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.nunito(
                         fontSize: 15,
                         color: AppColors.textLight,
                       ),
@@ -340,7 +340,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               _buildLabel('Dog\'s Name'),
               TextField(
                 controller: _nameController,
-                style: GoogleFonts.inter(fontSize: 16, color: AppColors.textDark),
+                style: GoogleFonts.nunito(fontSize: 16, color: AppColors.textDark),
                 decoration: const InputDecoration(
                   hintText: 'Enter your dog\'s name',
                   prefixIcon: Icon(Icons.badge_outlined, color: AppColors.primary),
@@ -373,7 +373,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 items: DogBreed.allBreeds.map((b) {
                   return DropdownMenuItem(
                     value: b.name,
-                    child: Text(b.name, style: GoogleFonts.inter(fontSize: 15)),
+                    child: Text(b.name, style: GoogleFonts.nunito(fontSize: 15)),
                   );
                 }).toList(),
                 onChanged: (v) => setState(() => _selectedBreed = v ?? ''),
@@ -409,7 +409,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             const SizedBox(width: 8),
                             Text(
                               g,
-                              style: GoogleFonts.inter(
+                              style: GoogleFonts.nunito(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: isSelected ? Colors.white : AppColors.textDark,
@@ -432,7 +432,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Years', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
+                        Text('Years', style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted)),
                         const SizedBox(height: 4),
                         _buildNumberPicker(_ageYears, 0, 20, (v) => setState(() => _ageYears = v)),
                       ],
@@ -443,7 +443,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Months', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
+                        Text('Months', style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted)),
                         const SizedBox(height: 4),
                         _buildNumberPicker(_ageMonths, 0, 11, (v) => setState(() => _ageMonths = v)),
                       ],
@@ -477,7 +477,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     child: Text(
                       '${_weight.toStringAsFixed(1)} kg',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.nunito(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primary,
@@ -507,7 +507,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(
         text,
-        style: GoogleFonts.inter(
+        style: GoogleFonts.nunito(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: AppColors.textDark,
@@ -535,7 +535,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Text(
               '$value',
               textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.nunito(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: AppColors.textDark,

@@ -112,7 +112,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
           children: [
             Text(
               'Location Activity',
-              style: GoogleFonts.playfairDisplay(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textBrown),
+              style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textBrown),
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -136,10 +136,10 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(log.title ?? log.type.label, style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.textDark)),
+                              Text(log.title ?? log.type.label, style: GoogleFonts.nunito(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.textDark)),
                               if (log.locationName != null) ...[
                                 const SizedBox(height: 2),
-                                Text(log.locationName!, style: GoogleFonts.inter(fontSize: 12, color: AppColors.textLight)),
+                                Text(log.locationName!, style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textLight)),
                               ]
                             ],
                           ),
@@ -267,7 +267,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                                       ),
                                       child: Text(
                                         '${cluster.count}x',
-                                        style: GoogleFonts.inter(
+                                        style: GoogleFonts.nunito(
                                           fontSize: 10,
                                           fontWeight: FontWeight.w800,
                                           color: Colors.white,

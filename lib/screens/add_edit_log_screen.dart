@@ -200,7 +200,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
       appBar: AppBar(
         title: Text(
           widget.isEditing ? 'Edit Entry' : 'Add Entry',
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: AppColors.textBrown,
@@ -229,7 +229,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                     selected: isSelected,
                     onSelected: (_) => setState(() => _selectedType = t),
                     selectedColor: AppColors.primary,
-                    labelStyle: GoogleFonts.inter(
+                    labelStyle: GoogleFonts.nunito(
                       color: isSelected ? Colors.white : AppColors.textDark,
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
@@ -248,7 +248,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                 ),
                 child: Text(
                   _selectedType.label,
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.nunito(
                     fontWeight: FontWeight.w600,
                     color: AppColors.primary,
                   ),
@@ -263,7 +263,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
               TextField(
                 controller: _valueController,
                 keyboardType: TextInputType.number,
-                style: GoogleFonts.inter(fontSize: 16),
+                style: GoogleFonts.nunito(fontSize: 16),
                 decoration: const InputDecoration(
                   hintText: 'Enter weight in kg',
                   prefixIcon: Icon(Icons.monitor_weight_outlined, color: AppColors.primary),
@@ -304,19 +304,19 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                           onSurface: AppColors.textDark,
                         ),
                         timePickerTheme: TimePickerThemeData(
-                          hourMinuteTextStyle: GoogleFonts.inter(
+                          hourMinuteTextStyle: GoogleFonts.nunito(
                             fontSize: 48,
                             fontWeight: FontWeight.bold,
                           ),
-                          dialTextStyle: GoogleFonts.inter(
+                          dialTextStyle: GoogleFonts.nunito(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
                           ),
-                          dayPeriodTextStyle: GoogleFonts.inter(
+                          dayPeriodTextStyle: GoogleFonts.nunito(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                           ),
-                          helpTextStyle: GoogleFonts.inter(
+                          helpTextStyle: GoogleFonts.nunito(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 1.2,
@@ -324,7 +324,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                         ),
                         textButtonTheme: TextButtonThemeData(
                           style: TextButton.styleFrom(
-                            textStyle: GoogleFonts.inter(
+                            textStyle: GoogleFonts.nunito(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
@@ -357,7 +357,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                     const SizedBox(width: 12),
                     Text(
                       '${_logDateTime.day}/${_logDateTime.month}/${_logDateTime.year} ${_logDateTime.hour.toString().padLeft(2, '0')}:${_logDateTime.minute.toString().padLeft(2, '0')}',
-                      style: GoogleFonts.inter(fontSize: 15, color: AppColors.textDark),
+                      style: GoogleFonts.nunito(fontSize: 15, color: AppColors.textDark),
                     ),
                   ],
                 ),
@@ -369,7 +369,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
             _buildLabel('Title'),
             TextField(
               controller: _titleController,
-              style: GoogleFonts.inter(fontSize: 16, color: AppColors.textDark),
+              style: GoogleFonts.nunito(fontSize: 16, color: AppColors.textDark),
               decoration: InputDecoration(
                 hintText: 'Enter a title',
                 prefixIcon: const Icon(Icons.title_rounded, color: AppColors.primary),
@@ -382,7 +382,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
             TextField(
               controller: _notesController,
               maxLines: 4,
-              style: GoogleFonts.inter(fontSize: 15),
+              style: GoogleFonts.nunito(fontSize: 15),
               decoration: const InputDecoration(hintText: 'Add notes...'),
             ),
             const SizedBox(height: 24),
@@ -441,13 +441,13 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                         children: [
                           Text(
                             _locationName ?? 'Location saved',
-                            style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.nunito(fontSize: 13, fontWeight: FontWeight.w500),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             '${_latitude!.toStringAsFixed(5)}, ${_longitude!.toStringAsFixed(5)}',
-                            style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted),
+                            style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted),
                           ),
                         ],
                       ),
@@ -492,7 +492,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                       const SizedBox(height: 8),
                       Text(
                         _isLoadingLocation ? 'Getting location...' : 'Add Current Location',
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.nunito(
                           fontSize: 14,
                           color: AppColors.textMuted,
                           fontWeight: FontWeight.w500,
@@ -524,7 +524,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(
         text,
-        style: GoogleFonts.inter(
+        style: GoogleFonts.nunito(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: AppColors.textDark,
@@ -554,11 +554,11 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
             const SizedBox(height: 8),
             Text(
               'Add Photos',
-              style: GoogleFonts.inter(fontSize: 14, color: AppColors.textMuted, fontWeight: FontWeight.w500),
+              style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textMuted, fontWeight: FontWeight.w500),
             ),
             Text(
               'Camera or Gallery',
-              style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted),
+              style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted),
             ),
           ],
         ),
@@ -582,7 +582,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.add_rounded, size: 28, color: AppColors.primary.withValues(alpha: 0.5)),
-            Text('Add', style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+            Text('Add', style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
           ],
         ),
       ),

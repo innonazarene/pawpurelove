@@ -105,7 +105,7 @@ class _PetListScreenState extends State<PetListScreen> {
       appBar: AppBar(
         title: Text(
           'My Pets',
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: AppColors.textBrown,
@@ -181,7 +181,7 @@ class _PetListScreenState extends State<PetListScreen> {
                     children: [
                       Text(
                         pet.name,
-                        style: GoogleFonts.playfairDisplay(
+                        style: GoogleFonts.poppins(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                           color: AppColors.textBrown,
@@ -197,7 +197,7 @@ class _PetListScreenState extends State<PetListScreen> {
                           ),
                           child: Text(
                             'Active',
-                            style: GoogleFonts.inter(
+                            style: GoogleFonts.nunito(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -210,7 +210,7 @@ class _PetListScreenState extends State<PetListScreen> {
                   const SizedBox(height: 4),
                   Text(
                     '${pet.breed} • ${pet.ageDisplay}',
-                    style: GoogleFonts.inter(fontSize: 13, color: AppColors.textLight),
+                    style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textLight),
                   ),
                   const SizedBox(height: 6),
                   Row(
@@ -289,7 +289,7 @@ class _PetListScreenState extends State<PetListScreen> {
         children: [
           Icon(icon, size: 12, color: AppColors.primary),
           const SizedBox(width: 3),
-          Text(text, style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.textDark)),
+          Text(text, style: GoogleFonts.nunito(fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.textDark)),
         ],
       ),
     );

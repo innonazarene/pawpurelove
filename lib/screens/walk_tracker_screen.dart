@@ -349,22 +349,22 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                         children: [
                           Column(
                             children: [
-                              Text('Duration', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
+                              Text('Duration', style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted)),
                               const SizedBox(height: 4),
                               Text(
                                 _formatDuration(_secondsElapsed),
-                                style: GoogleFonts.playfairDisplay(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary),
                               ),
                             ],
                           ),
                           Container(width: 1, height: 40, color: Colors.grey.withValues(alpha: 0.2)),
                           Column(
                             children: [
-                              Text('Distance', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
+                              Text('Distance', style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted)),
                               const SizedBox(height: 4),
                               Text(
                                 '${(_distanceMeters / 1000).toStringAsFixed(2)} km',
-                                style: GoogleFonts.playfairDisplay(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary),
                               ),
                             ],
                           ),
@@ -397,7 +397,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                               children: [
                                 const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 28),
                                 const SizedBox(width: 8),
-                                Text('Start Walk', style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                                Text('Start Walk', style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                               ],
                             ),
                           ),

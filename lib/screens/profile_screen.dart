@@ -159,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: Text(
           _isNew ? 'Add New Pet' : 'Edit Profile',
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: AppColors.textBrown,
@@ -174,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: _saveProfile,
             child: Text(
               'Save',
-              style: GoogleFonts.inter(
+              style: GoogleFonts.nunito(
                 color: AppColors.primary,
                 fontWeight: FontWeight.w600,
               ),
@@ -197,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _buildLabel('Name'),
             TextField(
               controller: _nameController,
-              style: GoogleFonts.inter(fontSize: 16, color: AppColors.textDark),
+              style: GoogleFonts.nunito(fontSize: 16, color: AppColors.textDark),
               decoration: const InputDecoration(
                 hintText: 'Your dog\'s name',
                 prefixIcon: Icon(Icons.badge_outlined, color: AppColors.primary),
@@ -226,7 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 items: DogBreed.allBreeds.map((b) {
                   return DropdownMenuItem(
                     value: b.name,
-                    child: Text(b.name, style: GoogleFonts.inter(fontSize: 15)),
+                    child: Text(b.name, style: GoogleFonts.nunito(fontSize: 15)),
                   );
                 }).toList(),
                 onChanged: (v) => setState(() => _selectedBreed = v ?? ''),
@@ -263,7 +263,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(width: 8),
                           Text(
                             g,
-                            style: GoogleFonts.inter(
+                            style: GoogleFonts.nunito(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                               color: isSelected ? Colors.white : AppColors.textDark,
@@ -286,7 +286,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Years', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
+                      Text('Years', style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted)),
                       const SizedBox(height: 4),
                       _buildNumberPicker(_ageYears, 0, 20, (v) => setState(() => _ageYears = v)),
                     ],
@@ -297,7 +297,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Months', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
+                      Text('Months', style: GoogleFonts.nunito(fontSize: 12, color: AppColors.textMuted)),
                       const SizedBox(height: 4),
                       _buildNumberPicker(_ageMonths, 0, 11, (v) => setState(() => _ageMonths = v)),
                     ],
@@ -331,7 +331,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   child: Text(
                     '${_weight.toStringAsFixed(1)} kg',
-                    style: GoogleFonts.inter(
+                    style: GoogleFonts.nunito(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary,
@@ -422,13 +422,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: const Icon(Icons.close_rounded, size: 16, color: AppColors.error),
             label: Text(
               'Remove photo',
-              style: GoogleFonts.inter(fontSize: 13, color: AppColors.error),
+              style: GoogleFonts.nunito(fontSize: 13, color: AppColors.error),
             ),
           )
         else
           Text(
             'Tap to add photo',
-            style: GoogleFonts.inter(fontSize: 13, color: AppColors.textMuted),
+            style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted),
           ),
       ],
     );
@@ -439,7 +439,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(
         text,
-        style: GoogleFonts.inter(
+        style: GoogleFonts.nunito(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: AppColors.textDark,
@@ -467,7 +467,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Text(
               '$value',
               textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.nunito(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: AppColors.textDark,

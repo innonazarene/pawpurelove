@@ -61,7 +61,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
                 children: [
                   Text(
                     'Daily Care',
-                    style: GoogleFonts.playfairDisplay(
+                    style: GoogleFonts.poppins(
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
                       color: AppColors.textBrown,
@@ -70,7 +70,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
                   const SizedBox(height: 4),
                   Text(
                     'Keep ${_profile?.name ?? 'your pup'} happy & healthy',
-                    style: GoogleFonts.inter(fontSize: 14, color: AppColors.textLight),
+                    style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textLight),
                   ),
                 ],
               ),
@@ -201,8 +201,8 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textDark)),
-                Text(subtitle, style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+                Text(title, style: GoogleFonts.nunito(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textDark)),
+                Text(subtitle, style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
               ],
             ),
           ],

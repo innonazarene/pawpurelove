@@ -65,7 +65,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                 children: [
                   Text(
                     'Memory & Joy',
-                    style: GoogleFonts.playfairDisplay(
+                    style: GoogleFonts.poppins(
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
                       color: AppColors.textBrown,
@@ -74,7 +74,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                   const SizedBox(height: 4),
                   Text(
                     'Cherish every moment with ${_profile?.name ?? 'your pup'}',
-                    style: GoogleFonts.inter(fontSize: 14, color: AppColors.textLight),
+                    style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textLight),
                   ),
                 ],
               ),
@@ -226,8 +226,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
               child: Icon(icon, color: color, size: 24),
             ),
             const SizedBox(height: 14),
-            Text(title, style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textDark)),
-            Text(subtitle, style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+            Text(title, style: GoogleFonts.nunito(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textDark)),
+            Text(subtitle, style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
           ],
         ),
       ),
@@ -241,9 +241,9 @@ class _MemoryScreenState extends State<MemoryScreen> {
         const SizedBox(height: 6),
         Text(
           value,
-          style: GoogleFonts.playfairDisplay(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textBrown),
+          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textBrown),
         ),
-        Text(label, style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted)),
+        Text(label, style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted)),
       ],
     );
   }
@@ -290,7 +290,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                               child: Center(
                                                 child: Text(
                                                   '+${log.imagePaths.length - 3}',
-                                                  style: GoogleFonts.inter(
+                                                  style: GoogleFonts.nunito(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -336,11 +336,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
                           children: [
                             Text(
                               log.title ?? (isMilestone ? 'Milestone' : 'Love Note'),
-                              style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textDark),
+                              style: GoogleFonts.nunito(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textDark),
                             ),
                             Text(
                               DateFormat('MMMM d, yyyy').format(log.dateTime),
-                              style: GoogleFonts.inter(fontSize: 11, color: AppColors.textMuted),
+                              style: GoogleFonts.nunito(fontSize: 11, color: AppColors.textMuted),
                             ),
                           ],
                         ),
@@ -366,7 +366,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                     const SizedBox(height: 10),
                     Text(
                       log.notes!,
-                      style: GoogleFonts.inter(fontSize: 13, color: AppColors.textLight, height: 1.5),
+                      style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textLight, height: 1.5),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -420,7 +420,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
         children: [
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 4),
-          Text(text, style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w500, color: color)),
+          Text(text, style: GoogleFonts.nunito(fontSize: 11, fontWeight: FontWeight.w500, color: color)),
         ],
       ),
     );
