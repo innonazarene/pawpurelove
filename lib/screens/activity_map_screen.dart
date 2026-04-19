@@ -195,7 +195,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                     TileLayer(
                       key: ValueKey(_isSatellite),
                       urlTemplate: _isSatellite
-                          ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                          ? 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}'
                           : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.innonazarene.pawpurelove',
                       maxNativeZoom: _isSatellite ? 18 : 19, 

@@ -26,6 +26,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
   bool _isTracking = false;
   bool _hasStarted = false;
   bool _isLoadingLocation = true;
+  bool _isSatellite = false;
   
   List<PetProfile> _allPets = [];
   Set<String> _selectedPetIds = {};
@@ -220,7 +221,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
     }
     
     if (mounted) {
-      Navigator.pop(context); // Go back after saving
+      Navigator.pop(context, true); // Go back after saving
     }
   }
 
@@ -278,10 +279,12 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                   ),
                   children: [
                     TileLayer(
-                      key: const ValueKey('osm_tracker'),
-                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      key: ValueKey('tracker_${_isSatellite}'),
+                      urlTemplate: _isSatellite
+                          ? 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}'
+                          : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.innonazarene.pawpurelove',
-                      maxNativeZoom: 19,
+                      maxNativeZoom: _isSatellite ? 18 : 19,
                     ),
                     
                     // The path drawn
@@ -384,6 +387,33 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                       ),
                     ),
                   ),
+
+                // Map style toggle floating card
+                Positioned(
+                  top: MediaQuery.of(context).padding.top + 16,
+                  right: 16,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10),
+                      ],
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        _isSatellite ? Icons.map_rounded : Icons.satellite_alt_rounded,
+                        color: AppColors.primary,
+                      ),
+                      tooltip: _isSatellite ? 'Switch to Normal Map' : 'Switch to Satellite',
+                      onPressed: () {
+                        setState(() {
+                          _isSatellite = !_isSatellite;
+                        });
+                      },
+                    ),
+                  ),
+                ),
 
                 if (!_hasStarted && _allPets.length > 1)
                   Positioned(

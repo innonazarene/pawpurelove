@@ -36,6 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<PetSchedule> _pendingSchedules = [];
   String _currentQuote = PetQuotes.getRandomQuote();
   late PageController _pageController;
+  int _globalRefreshKey = 0;
+
+  void _triggerGlobalRefresh() {
+    setState(() {
+      _globalRefreshKey++;
+    });
+    _loadData();
+  }
 
   @override
   void initState() {
@@ -72,9 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final screens = [
       _buildHomeTab(),
-      DailyCareScreen(key: ValueKey('daily_${_profile?.id}')),
-      HealthScreen(key: ValueKey('health_${_profile?.id}')),
-      MemoryScreen(key: ValueKey('memory_${_profile?.id}')),
+      DailyCareScreen(key: ValueKey('daily_${_profile?.id}_$_globalRefreshKey'), petId: _profile!.id),
+      HealthScreen(key: ValueKey('health_${_profile?.id}_$_globalRefreshKey'), petId: _profile!.id),
+      MemoryScreen(key: ValueKey('memory_${_profile?.id}_$_globalRefreshKey'), petId: _profile!.id),
     ];
 
     return Scaffold(
@@ -94,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(builder: (_) => AddEditLogScreen(petId: _profile!.id)),
                 );
-                if (result == true) _loadData();
+                if (result == true) _triggerGlobalRefresh();
               },
               backgroundColor: AppColors.primary,
               elevation: 4,
@@ -494,12 +502,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: 'Track your live route with GPS',
                     color: AppColors.success,
                     borderColor: AppColors.pastelGreen,
-                    onTap: () {
+                    onTap: () async {
                       if (_profile != null) {
-                        Navigator.push(
+                        final result = await Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => WalkTrackerScreen(petId: _profile!.id)),
                         );
+                        if (result == true) {
+                          _triggerGlobalRefresh();
+                        }
                       }
                     },
                   ),
@@ -1046,13 +1057,13 @@ class _HomeScreenState extends State<HomeScreen> {
         duration: const Duration(seconds: 2),
       ),
     );
-    _loadData();
+    _triggerGlobalRefresh();
   }
 
   Future<void> _deleteLog(String logId) async {
     final storage = await StorageService.getInstance();
     await storage.deleteCareLog(logId);
-    _loadData();
+    _triggerGlobalRefresh();
   }
 
   String _getGreeting() {
