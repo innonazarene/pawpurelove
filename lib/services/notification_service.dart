@@ -109,7 +109,7 @@ class NotificationService {
 
     while (scheduledDate.isBefore(DateTime.now()) &&
         schedule.frequency != ScheduleFrequency.once) {
-      scheduledDate = _calculateNext(scheduledDate, schedule.frequency);
+      scheduledDate = calculateNext(scheduledDate, schedule.frequency);
     }
 
     final tz.TZDateTime tzDate = tz.TZDateTime.from(scheduledDate, tz.local);
@@ -150,7 +150,7 @@ class NotificationService {
     }
   }
 
-  DateTime _calculateNext(DateTime current, ScheduleFrequency frequency) {
+  DateTime calculateNext(DateTime current, ScheduleFrequency frequency) {
     switch (frequency) {
       case ScheduleFrequency.daily:
         return current.add(const Duration(days: 1));

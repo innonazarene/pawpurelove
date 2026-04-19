@@ -15,6 +15,8 @@ import 'profile_screen.dart';
 import 'pet_list_screen.dart';
 import 'schedules_screen.dart';
 import 'add_edit_log_screen.dart';
+import '../models/pet_schedule.dart';
+import '../services/notification_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   PetProfile? _profile;
   List<PetProfile> _allPets = [];
   List<CareLog> _todayLogs = [];
+  List<PetSchedule> _pendingSchedules = [];
   String _currentQuote = PetQuotes.getRandomQuote();
   late PageController _pageController;
 
@@ -51,6 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
       _allPets = storage.getAllPetProfiles();
       _todayLogs = storage.getTodaysLogs();
       _currentQuote = PetQuotes.getRandomQuote();
+      if (_profile != null) {
+        final allSchedules = storage.getPetSchedules(_profile!.id);
+        _pendingSchedules = allSchedules
+            .where((s) => s.isActive && s.nextScheduledDate.isBefore(DateTime.now()))
+            .toList();
+      } else {
+        _pendingSchedules = [];
+      }
     });
   }
 
@@ -198,15 +209,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const PetListScreen()),
-                      );
-                      _loadData();
-                    },
-                    child: _buildProfileAvatar(),
+                  Row(
+                    children: [
+                      _buildNotificationBell(),
+                      const SizedBox(width: 16),
+                      GestureDetector(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const PetListScreen()),
+                          );
+                          _loadData();
+                        },
+                        child: _buildProfileAvatar(),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -511,6 +528,164 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Widget _buildNotificationBell() {
+    return GestureDetector(
+      onTap: _pendingSchedules.isNotEmpty ? _showPendingSchedulesBottomSheet : null,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: _pendingSchedules.isNotEmpty ? 0.1 : 0.05),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.notifications_active_rounded, 
+              color: _pendingSchedules.isNotEmpty ? AppColors.primary : AppColors.textMuted, 
+              size: 24,
+            ),
+          ),
+          if (_pendingSchedules.isNotEmpty)
+            Positioned(
+              top: -2,
+              right: -2,
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: AppColors.error,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 1.5),
+                ),
+                child: Text(
+                  '${_pendingSchedules.length}',
+                  style: GoogleFonts.inter(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _showPendingSchedulesBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).padding.bottom + 16,
+          left: 24,
+          right: 24,
+          top: 24,
+        ),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Pending Reminders', style: GoogleFonts.playfairDisplay(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textBrown)),
+            const SizedBox(height: 8),
+            Text('Mark these routines as completed.', style: GoogleFonts.inter(fontSize: 14, color: AppColors.textMuted)),
+            const SizedBox(height: 24),
+            ..._pendingSchedules.map((schedule) {
+              return PawCard(
+                borderColor: AppColors.primary.withValues(alpha: 0.1),
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(bottom: 12),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: _getColorForType(schedule.type).withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(_getIconForType(schedule.type), color: _getColorForType(schedule.type), size: 24),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(schedule.title, style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.textDark)),
+                          const SizedBox(height: 2),
+                          Text('Due: ${DateFormat.yMMMd().add_jm().format(schedule.nextScheduledDate)}', style: GoogleFonts.inter(color: AppColors.error, fontSize: 12, fontWeight: FontWeight.w500)),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.success,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _acceptSchedule(schedule);
+                      },
+                      child: Text('Done', style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 13)),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _acceptSchedule(PetSchedule schedule) async {
+    final storage = await StorageService.getInstance();
+    
+    // Automatically log it 
+    final log = CareLog(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        petId: schedule.petId,
+        type: schedule.type,
+        dateTime: DateTime.now(),
+        title: schedule.title,
+        notes: schedule.notes ?? 'Completed from reminder!',
+    );
+    await storage.saveCareLog(log);
+
+    // Update the schedule
+    PetSchedule updatedSchedule;
+    if (schedule.frequency == ScheduleFrequency.once) {
+      updatedSchedule = schedule.copyWith(isActive: false);
+    } else {
+      updatedSchedule = schedule.copyWith(
+        nextScheduledDate: NotificationService().calculateNext(schedule.nextScheduledDate, schedule.frequency),
+      );
+      // Re-schedule native notification for the next cycle
+      await NotificationService().schedulePetNotification(updatedSchedule, _profile?.name ?? 'Pet');
+    }
+    await storage.savePetSchedule(updatedSchedule);
+
+    _loadData();
+    
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        children: [
+          const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+          const SizedBox(width: 8),
+          Text('${schedule.title} marked as done!'),
+        ],
+      ),
+      backgroundColor: AppColors.success,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ));
   }
 
   Widget _buildProfileAvatar() {
