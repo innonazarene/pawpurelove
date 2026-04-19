@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _todayLogs = storage.getTodaysLogs();
       _currentQuote = PetQuotes.getRandomQuote();
       if (_profile != null) {
-        final allSchedules = storage.getPetSchedules(_profile!.id);
+        final allSchedules = storage.getActivePetSchedules();
         _pendingSchedules = allSchedules
             .where((s) => s.isActive && s.nextScheduledDate.isBefore(DateTime.now()))
             .toList();
@@ -595,11 +595,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Text('Mark these routines as completed.', style: GoogleFonts.inter(fontSize: 14, color: AppColors.textMuted)),
             const SizedBox(height: 24),
             ..._pendingSchedules.map((schedule) {
-              return PawCard(
-                borderColor: AppColors.primary.withValues(alpha: 0.1),
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(bottom: 12),
-                child: Row(
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: PawCard(
+                  borderColor: AppColors.primary.withValues(alpha: 0.1),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
                   children: [
                     Container(
                       padding: const EdgeInsets.all(10),
@@ -636,8 +637,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-              );
-            }),
+              ),
+            );
+          }),
           ],
         ),
       ),
@@ -669,7 +671,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // Re-schedule native notification for the next cycle
       await NotificationService().schedulePetNotification(updatedSchedule, _profile?.name ?? 'Pet');
     }
-    await storage.savePetSchedule(updatedSchedule);
+    await storage.updateSchedule(updatedSchedule);
 
     _loadData();
     
