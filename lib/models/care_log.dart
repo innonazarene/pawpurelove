@@ -65,6 +65,7 @@ class CareLog {
   double? latitude;
   double? longitude;
   String? locationName;
+  List<Map<String, double>>? routeCoordinates;
 
   CareLog({
     required this.id,
@@ -80,6 +81,7 @@ class CareLog {
     this.latitude,
     this.longitude,
     this.locationName,
+    this.routeCoordinates,
   }) : imagePaths = imagePaths ?? [];
 
   bool get hasImages => imagePaths.isNotEmpty;
@@ -99,6 +101,7 @@ class CareLog {
     'latitude': latitude,
     'longitude': longitude,
     'locationName': locationName,
+    'routeCoordinates': routeCoordinates,
   };
 
   factory CareLog.fromJson(Map<String, dynamic> json) => CareLog(
@@ -115,6 +118,9 @@ class CareLog {
     latitude: json['latitude']?.toDouble(),
     longitude: json['longitude']?.toDouble(),
     locationName: json['locationName'],
+    routeCoordinates: (json['routeCoordinates'] as List<dynamic>?)
+        ?.map((e) => Map<String, double>.from(e.map((k, v) => MapEntry(k.toString(), (v as num).toDouble()))))
+        .toList(),
   );
 
   CareLog copyWith({
@@ -128,6 +134,7 @@ class CareLog {
     double? latitude,
     double? longitude,
     String? locationName,
+    List<Map<String, double>>? routeCoordinates,
   }) {
     return CareLog(
       id: id,
@@ -143,6 +150,7 @@ class CareLog {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       locationName: locationName ?? this.locationName,
+      routeCoordinates: routeCoordinates ?? this.routeCoordinates,
     );
   }
 

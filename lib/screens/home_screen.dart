@@ -16,6 +16,7 @@ import 'schedules_screen.dart';
 import 'add_edit_log_screen.dart';
 import 'pet_list_screen.dart';
 import 'activity_map_screen.dart';
+import 'walk_tracker_screen.dart';
 import '../models/pet_schedule.dart';
 import '../services/notification_service.dart';
 
@@ -532,6 +533,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => ActivityMapScreen(petId: _profile!.id)),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  _buildFeatureCard(
+                    icon: Icons.directions_walk_rounded,
+                    title: 'Live Walk Tracker',
+                    subtitle: 'Track your live route with GPS',
+                    color: AppColors.success,
+                    borderColor: AppColors.pastelGreen,
+                    onTap: () {
+                      if (_profile != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => WalkTrackerScreen(petId: _profile!.id)),
                         );
                       }
                     },

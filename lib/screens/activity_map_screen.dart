@@ -200,6 +200,21 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                       userAgentPackageName: 'com.innonazarene.pawpurelove',
                       maxNativeZoom: _isSatellite ? 18 : 19, 
                     ),
+                    PolylineLayer(
+                      polylines: _clusters.expand((c) => c.logs)
+                          .where((log) => log.routeCoordinates != null && log.routeCoordinates!.isNotEmpty)
+                          .map((log) {
+                            return Polyline(
+                              points: log.routeCoordinates!.map((coord) => LatLng(coord['lat']!, coord['lng']!)).toList(),
+                              strokeWidth: 5.0,
+                              color: AppColors.primary.withValues(alpha: 0.7),
+                              borderStrokeWidth: 1.5,
+                              borderColor: Colors.white,
+                              strokeJoin: StrokeJoin.round,
+                              strokeCap: StrokeCap.round,
+                            );
+                          }).toList(),
+                    ),
                     MarkerLayer(
                       markers: _clusters.map((cluster) {
                         // Inherit color from the most recent log in cluster
