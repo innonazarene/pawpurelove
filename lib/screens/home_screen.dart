@@ -14,6 +14,7 @@ import 'memory_screen.dart';
 import 'profile_screen.dart';
 import 'pet_list_screen.dart';
 import 'schedules_screen.dart';
+import 'add_edit_log_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -72,25 +73,38 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: const BouncingScrollPhysics(),
         children: screens,
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 20,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
+      floatingActionButton: _profile != null
+          ? FloatingActionButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AddEditLogScreen(petId: _profile!.id)),
+                );
+                if (result == true) _loadData();
+              },
+              backgroundColor: AppColors.primary,
+              elevation: 4,
+              shape: const CircleBorder(),
+              child: const Icon(Icons.pets_rounded, color: Colors.white, size: 28),
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        elevation: 8,
+        shadowColor: Colors.black.withValues(alpha: 0.3),
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8,
+        padding: EdgeInsets.zero,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, 'Home'),
                 _buildNavItem(1, Icons.restaurant_rounded, Icons.restaurant_outlined, 'Care'),
+                const SizedBox(width: 48),
                 _buildNavItem(2, Icons.monitor_heart_rounded, Icons.monitor_heart_outlined, 'Health'),
                 _buildNavItem(3, Icons.photo_album_rounded, Icons.photo_album_outlined, 'Memory'),
               ],
@@ -116,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
           color: isActive ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(14),
