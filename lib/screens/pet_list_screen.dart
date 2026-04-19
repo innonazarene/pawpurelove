@@ -153,7 +153,7 @@ class _PetListScreenState extends State<PetListScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isActive ? AppColors.primary.withValues(alpha: 0.06) : Colors.white,
+          color: isActive ? AppColors.primary.withValues(alpha: 0.06) : AppColors.surfaceCard,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isActive ? AppColors.primary : AppColors.pastelPink.withValues(alpha: 0.5),

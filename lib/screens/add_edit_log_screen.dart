@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
+import '../theme/theme_notifier.dart';
 import '../models/care_log.dart';
 import '../services/storage_service.dart';
 import '../services/image_location_service.dart';
@@ -283,11 +284,19 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                   builder: (context, child) => Theme(
                     data: Theme.of(context).copyWith(
-                      colorScheme: const ColorScheme.light(
-                        primary: AppColors.primary,
-                        onPrimary: Colors.white,
-                        onSurface: AppColors.textDark,
-                      ),
+                      colorScheme: ThemeNotifier().isDarkMode 
+                        ? ColorScheme.dark(
+                            primary: AppColors.primary,
+                            onPrimary: Colors.white,
+                            surface: AppColors.surfaceCard,
+                            onSurface: AppColors.textDark,
+                          )
+                        : ColorScheme.light(
+                            primary: AppColors.primary,
+                            onPrimary: Colors.white,
+                            surface: AppColors.surfaceCard,
+                            onSurface: AppColors.textDark,
+                          ),
                     ),
                     child: child!,
                   ),
@@ -298,11 +307,19 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                     initialTime: TimeOfDay.fromDateTime(_logDateTime),
                     builder: (context, child) => Theme(
                       data: Theme.of(context).copyWith(
-                        colorScheme: const ColorScheme.light(
-                          primary: AppColors.primary,
-                          onPrimary: Colors.white,
-                          onSurface: AppColors.textDark,
-                        ),
+                        colorScheme: ThemeNotifier().isDarkMode 
+                          ? ColorScheme.dark(
+                              primary: AppColors.primary,
+                              onPrimary: Colors.white,
+                              surface: AppColors.surfaceCard,
+                              onSurface: AppColors.textDark,
+                            )
+                          : ColorScheme.light(
+                              primary: AppColors.primary,
+                              onPrimary: Colors.white,
+                              surface: AppColors.surfaceCard,
+                              onSurface: AppColors.textDark,
+                            ),
                         timePickerTheme: TimePickerThemeData(
                           hourMinuteTextStyle: GoogleFonts.nunito(
                             fontSize: 48,
@@ -347,7 +364,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.surfaceCard,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
                 ),
@@ -419,7 +436,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.surfaceCard,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.pastelBlue),
                 ),
@@ -429,10 +446,10 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: AppColors.health.withValues(alpha: 0.12),
+                        color: AppColors.dailyCare.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(13),
                       ),
-                      child: const Icon(Icons.location_on_rounded, color: AppColors.health),
+                      child: const Icon(Icons.location_on_rounded, color: AppColors.dailyCare),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -454,7 +471,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                     ),
                     IconButton(
                       onPressed: _clearLocation,
-                      icon: const Icon(Icons.close_rounded, size: 20, color: AppColors.textMuted),
+                      icon: Icon(Icons.close_rounded, size: 20, color: AppColors.textMuted),
                     ),
                   ],
                 ),
@@ -466,7 +483,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.surfaceCard,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: AppColors.primary.withValues(alpha: 0.2),
@@ -540,7 +557,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
         width: double.infinity,
         height: 120,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surfaceCard,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: AppColors.primary.withValues(alpha: 0.2),
@@ -574,7 +591,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
         height: 120,
         margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surfaceCard,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
         ),

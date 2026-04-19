@@ -20,6 +20,7 @@ import 'walk_tracker_screen.dart';
 import 'analytics_screen.dart';
 import '../models/pet_schedule.dart';
 import '../services/notification_service.dart';
+import '../theme/theme_notifier.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final screens = [
       _buildHomeTab(),
-      DailyCareScreen(key: ValueKey('daily_${_profile?.id}_$_globalRefreshKey'), petId: _profile!.id),
-      HealthScreen(key: ValueKey('health_${_profile?.id}_$_globalRefreshKey'), petId: _profile!.id),
-      MemoryScreen(key: ValueKey('memory_${_profile?.id}_$_globalRefreshKey'), petId: _profile!.id),
+      DailyCareScreen(key: ValueKey('daily_${_profile?.id}_$_globalRefreshKey')),
+      HealthScreen(key: ValueKey('health_${_profile?.id}_$_globalRefreshKey')),
+      MemoryScreen(key: ValueKey('memory_${_profile?.id}_$_globalRefreshKey')),
     ];
 
     return Scaffold(
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         elevation: 8,
         shadowColor: Colors.black.withValues(alpha: 0.3),
         shape: const CircularNotchedRectangle(),
@@ -222,6 +223,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Row(
                     children: [
+                      IconButton(
+                        onPressed: () => ThemeNotifier().toggleTheme(),
+                        icon: Icon(
+                          ThemeNotifier().isDarkMode ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                          color: AppColors.primary,
+                        ),
+                        splashRadius: 24,
+                      ),
+                      const SizedBox(width: 8),
                       _buildNotificationBell(),
                       const SizedBox(width: 16),
                       GestureDetector(
@@ -295,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             margin: const EdgeInsets.only(right: 8),
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColors.surfaceCard,
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(color: AppColors.primary.withValues(alpha: 0.2), style: BorderStyle.solid),
                             ),
@@ -322,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           margin: const EdgeInsets.only(right: 8),
                           padding: const EdgeInsets.symmetric(horizontal: 14),
                           decoration: BoxDecoration(
-                            color: isActive ? AppColors.primary.withValues(alpha: 0.1) : Colors.white,
+                            color: isActive ? AppColors.primary.withValues(alpha: 0.1) : AppColors.surfaceCard,
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                               color: isActive ? AppColors.primary : AppColors.pastelPink,
@@ -500,7 +510,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icons.directions_walk_rounded,
                     title: 'Live Walk Tracker',
                     subtitle: 'Track your live route with GPS',
-                    color: AppColors.success,
+                    color: AppColors.dailyCare,
                     borderColor: AppColors.pastelGreen,
                     onTap: () async {
                       if (_profile != null) {
@@ -519,7 +529,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icons.map_rounded,
                     title: 'Activity Map',
                     subtitle: 'See exactly where memory milestones & walks took place',
-                    color: AppColors.info,
+                    color: AppColors.dailyCare,
                     borderColor: AppColors.pastelBlue,
                     onTap: () {
                       if (_profile != null) {
@@ -535,7 +545,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icons.schedule_rounded,
                     title: 'Schedules & Reminders',
                     subtitle: 'Daily routines and upcoming appointments',
-                    color: AppColors.warning,
+                    color: AppColors.dailyCare,
                     borderColor: AppColors.pastelYellow,
                     onTap: () {
                       if (_profile != null) {
@@ -589,7 +599,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.monitor_heart_rounded,
                         title: 'Health',
                         subtitle: 'Vaccines & vet',
-                        color: AppColors.health,
+                        color: AppColors.dailyCare,
                         borderColor: AppColors.pastelBlue,
                         onTap: () {
                           setState(() => _currentIndex = 2);
@@ -600,7 +610,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.photo_album_rounded,
                         title: 'Memory',
                         subtitle: 'Moments & notes',
-                        color: AppColors.memory,
+                        color: AppColors.dailyCare,
                         borderColor: AppColors.pastelPurple,
                         onTap: () {
                           setState(() => _currentIndex = 3);
@@ -672,8 +682,8 @@ class _HomeScreenState extends State<HomeScreen> {
           right: 24,
           top: 24,
         ),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: AppColors.surfaceCard,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Column(
@@ -911,7 +921,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
               _loadData();
             },
-            icon: const Icon(Icons.edit_outlined, color: AppColors.textMuted, size: 20),
+            icon: Icon(Icons.edit_outlined, color: AppColors.textMuted, size: 20),
           ),
         ],
       ),
@@ -1093,8 +1103,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Color _getColorForType(CareType type) {
     switch (type.category) {
       case 'daily': return AppColors.dailyCare;
-      case 'health': return AppColors.health;
-      case 'memory': return AppColors.memory;
+      case 'health': return AppColors.dailyCare;
+      case 'memory': return AppColors.dailyCare;
       default: return AppColors.primary;
     }
   }

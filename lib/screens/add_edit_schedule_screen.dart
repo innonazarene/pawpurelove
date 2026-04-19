@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../theme/app_theme.dart';
+import '../theme/theme_notifier.dart';
 import '../models/care_log.dart';
 import '../models/pet_schedule.dart';
 import '../services/storage_service.dart';
@@ -108,12 +109,19 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primary,
-              onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: AppColors.textDark,
-            ),
+            colorScheme: ThemeNotifier().isDarkMode
+              ? ColorScheme.dark(
+                  primary: AppColors.primary,
+                  onPrimary: Colors.white,
+                  surface: AppColors.surfaceCard,
+                  onSurface: AppColors.textDark,
+                )
+              : ColorScheme.light(
+                  primary: AppColors.primary,
+                  onPrimary: Colors.white,
+                  surface: AppColors.surfaceCard,
+                  onSurface: AppColors.textDark,
+                ),
           ),
           child: child!,
         );
@@ -131,12 +139,19 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primary,
-              onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: AppColors.textDark,
-            ),
+            colorScheme: ThemeNotifier().isDarkMode
+              ? ColorScheme.dark(
+                  primary: AppColors.primary,
+                  onPrimary: Colors.white,
+                  surface: AppColors.surfaceCard,
+                  onSurface: AppColors.textDark,
+                )
+              : ColorScheme.light(
+                  primary: AppColors.primary,
+                  onPrimary: Colors.white,
+                  surface: AppColors.surfaceCard,
+                  onSurface: AppColors.textDark,
+                ),
             timePickerTheme: TimePickerThemeData(
               hourMinuteTextStyle: GoogleFonts.nunito(
                 fontSize: 48,
@@ -275,7 +290,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
   Widget _buildTextField(TextEditingController controller, String hint, IconData icon, {int maxLines = 1}) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
       ),
@@ -297,7 +312,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
       ),
@@ -330,7 +345,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
       ),
@@ -360,7 +375,7 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
         height: 56,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surfaceCard,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
         ),
@@ -399,9 +414,9 @@ class _AddEditScheduleScreenState extends State<AddEditScheduleScreen> {
   Color _getColorForType(CareType type) {
     switch (type.category) {
       case 'daily': return AppColors.dailyCare;
-      case 'health': return AppColors.health;
-      case 'memory': return AppColors.memory;
-      default: return AppColors.primary;
+      case 'health': return AppColors.dailyCare;
+      case 'memory': return AppColors.dailyCare;
+      default: return AppColors.dailyCare;
     }
   }
 }

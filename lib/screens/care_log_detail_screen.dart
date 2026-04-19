@@ -262,7 +262,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.surfaceCard,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
                       ),
@@ -307,7 +307,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                         width: double.infinity,
                         padding: const EdgeInsets.all(18),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.surfaceCard,
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: AppColors.pastelBlue),
                         ),
@@ -317,10 +317,10 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                               width: 48,
                               height: 48,
                               decoration: BoxDecoration(
-                                color: AppColors.health.withValues(alpha: 0.12),
+                                color: AppColors.dailyCare.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(14),
                               ),
-                              child: const Icon(Icons.location_on_rounded, color: AppColors.health),
+                              child: const Icon(Icons.location_on_rounded, color: AppColors.dailyCare),
                             ),
                             const SizedBox(width: 14),
                             Expanded(
@@ -346,20 +346,20 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
-                                color: AppColors.health.withValues(alpha: 0.1),
+                                color: AppColors.dailyCare.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.map_rounded, size: 16, color: AppColors.health),
+                                  const Icon(Icons.map_rounded, size: 16, color: AppColors.dailyCare),
                                   const SizedBox(width: 4),
                                   Text(
                                     'Map',
                                     style: GoogleFonts.nunito(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
-                                      color: AppColors.health,
+                                      color: AppColors.dailyCare,
                                     ),
                                   ),
                                 ],
@@ -466,7 +466,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
     }
     return Container(
       color: AppColors.pastelPink.withValues(alpha: 0.3),
-      child: const Center(
+      child: Center(
         child: Icon(Icons.image_not_supported_rounded, size: 48, color: AppColors.textMuted),
       ),
     );
@@ -491,8 +491,8 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
   Color _getColorForType(CareType type) {
     switch (type.category) {
       case 'daily': return AppColors.dailyCare;
-      case 'health': return AppColors.health;
-      case 'memory': return AppColors.memory;
+      case 'health': return AppColors.dailyCare;
+      case 'memory': return AppColors.dailyCare;
       default: return AppColors.primary;
     }
   }

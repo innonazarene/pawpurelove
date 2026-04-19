@@ -90,9 +90,9 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
   Color _getColorForType(CareType type) {
     switch (type.category) {
       case 'daily': return AppColors.dailyCare;
-      case 'health': return AppColors.health;
-      case 'memory': return AppColors.memory;
-      default: return AppColors.primary;
+      case 'health': return AppColors.dailyCare;
+      case 'memory': return AppColors.dailyCare;
+      default: return AppColors.dailyCare;
     }
   }
 
@@ -167,14 +167,14 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
           padding: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.9),
+              color: AppColors.surfaceCard.withValues(alpha: 0.9),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10),
               ],
             ),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textDark, size: 20),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textDark, size: 20),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -236,7 +236,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                                   width: 38,
                                   height: 38,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: AppColors.surfaceCard,
                                     shape: BoxShape.circle,
                                     border: Border.all(color: primeColor, width: 2.5),
                                     boxShadow: [
@@ -290,7 +290,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                   right: 16,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.9),
+                      color: AppColors.surfaceCard.withValues(alpha: 0.9),
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10),
@@ -317,7 +317,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                   right: 16,
                   child: FloatingActionButton(
                     heroTag: 'mapCenterBtn',
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.surfaceCard,
                     foregroundColor: AppColors.primary,
                     child: const Icon(Icons.my_location_rounded),
                     onPressed: () {

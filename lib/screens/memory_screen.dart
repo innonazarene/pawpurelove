@@ -54,11 +54,12 @@ class _MemoryScreenState extends State<MemoryScreen> {
                 left: 24, right: 24, bottom: 16,
               ),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                color: ThemeNotifier().isDarkMode ? AppColors.background : null,
+                gradient: ThemeNotifier().isDarkMode ? null : LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.pastelPurple.withValues(alpha: 0.4),
+                    AppColors.pastelPink.withValues(alpha: 0.4),
                     AppColors.background,
                   ],
                 ),
@@ -144,7 +145,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                       _memoryLogs.where((l) => l.hasImages).length.toString(),
                       'With Photos',
                       Icons.photo_rounded,
-                      AppColors.memory,
+                      AppColors.dailyCare,
                     ),
                   ],
                 ),
@@ -194,7 +195,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
         onPressed: () => _addMemory(CareType.note),
         icon: const Icon(Icons.add_rounded),
         label: const Text('Add Memory'),
-        backgroundColor: AppColors.memory,
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
       ),
     );
@@ -213,7 +214,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: bgColor,
+          color: ThemeNotifier().isDarkMode ? AppColors.surfaceCard : bgColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: color.withValues(alpha: 0.15)),
         ),
@@ -351,7 +352,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                       ),
                       // Action buttons
                       PopupMenuButton<String>(
-                        icon: Icon(Icons.more_vert_rounded, size: 20, color: AppColors.textMuted.withValues(alpha: 0.6)),
+                        icon: Icon(Icons.more_vert_rounded, size: 20, color: AppColors.textBrown.withValues(alpha: 0.6)),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         onSelected: (v) {
                           if (v == 'edit') _editLog(log);
@@ -381,7 +382,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                     Row(
                       children: [
                         if (log.hasImages)
-                          _buildBadge(Icons.photo_rounded, '${log.imagePaths.length} photo${log.imagePaths.length > 1 ? 's' : ''}', AppColors.memory),
+                          _buildBadge(Icons.photo_rounded, '${log.imagePaths.length} photo${log.imagePaths.length > 1 ? 's' : ''}', AppColors.dailyCare),
                         if (log.hasImages && log.hasLocation) const SizedBox(width: 8),
                         if (log.hasLocation)
                           GestureDetector(
@@ -398,7 +399,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                 );
                               }
                             },
-                            child: _buildBadge(Icons.location_on_rounded, log.locationName ?? 'Map', AppColors.health),
+                            child: _buildBadge(Icons.location_on_rounded, log.locationName ?? 'Map', AppColors.dailyCare),
                           ),
                       ],
                     ),

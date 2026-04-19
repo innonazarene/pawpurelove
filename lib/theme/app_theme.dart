@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'theme_notifier.dart';
+export 'theme_notifier.dart';
 
 class AppColors {
   // Primary palette
@@ -15,15 +17,15 @@ class AppColors {
   static const Color pastelPurple = Color(0xFFE0D4F0);
 
   // Text colors
-  static const Color textDark = Color(0xFF3F2A1E);
-  static const Color textBrown = Color(0xFF4A2C1F);
-  static const Color textLight = Color(0xFF7A6459);
-  static const Color textMuted = Color(0xFFA89890);
+  static Color get textDark => ThemeNotifier().isDarkMode ? Colors.white : const Color(0xFF3F2A1E);
+  static Color get textBrown => ThemeNotifier().isDarkMode ? const Color(0xFFE8DCCD) : const Color(0xFF4A2C1F);
+  static Color get textLight => ThemeNotifier().isDarkMode ? const Color(0xFFB0A49E) : const Color(0xFF7A6459);
+  static Color get textMuted => ThemeNotifier().isDarkMode ? const Color(0xFF887D78) : const Color(0xFFA89890);
 
   // Surfaces
-  static const Color surface = Color(0xFFFFFBF8);
-  static const Color surfaceCard = Colors.white;
-  static const Color background = Color(0xFFFFF9F5);
+  static Color get surface => ThemeNotifier().isDarkMode ? const Color(0xFF1E1E1E) : const Color(0xFFFFFBF8);
+  static Color get surfaceCard => ThemeNotifier().isDarkMode ? const Color(0xFF2C2C2C) : Colors.white;
+  static Color get background => ThemeNotifier().isDarkMode ? const Color(0xFF121212) : const Color(0xFFFFF9F5);
 
   // Status colors
   static const Color success = Color(0xFF6BBF7B);
@@ -59,10 +61,10 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      brightness: Brightness.light,
+      brightness: ThemeNotifier().isDarkMode ? Brightness.dark : Brightness.light,
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
-        brightness: Brightness.light,
+        brightness: ThemeNotifier().isDarkMode ? Brightness.dark : Brightness.light,
         primary: AppColors.primary,
         onPrimary: Colors.white,
         secondary: AppColors.pastelPink,
@@ -208,7 +210,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
         ),
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textMuted,

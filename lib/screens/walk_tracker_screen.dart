@@ -255,11 +255,11 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
           padding: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.9),
+              color: AppColors.surfaceCard.withValues(alpha: 0.9),
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textDark, size: 20),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textDark, size: 20),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -290,8 +290,9 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                     // The path drawn
                     PolylineLayer(
                       polylines: [
-                        Polyline(
-                          points: _routePoints,
+                        if (_routePoints.isNotEmpty)
+                          Polyline(
+                            points: _routePoints,
                           strokeWidth: 6.0,
                           color: AppColors.primary.withValues(alpha: 0.8),
                           borderStrokeWidth: 2.0,
@@ -353,7 +354,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.95),
+                        color: AppColors.surfaceCard.withValues(alpha: 0.95),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10, offset: const Offset(0, 4)),
@@ -394,7 +395,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                   right: 16,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.9),
+                      color: AppColors.surfaceCard.withValues(alpha: 0.9),
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10),
@@ -423,7 +424,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                     child: Container(
                       width: 65,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: AppColors.surfaceCard.withValues(alpha: 0.8),
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)],
                       ),
@@ -458,7 +459,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                               child: ClipOval(
                                 child: pet.photoPath != null && File(pet.photoPath!).existsSync()
                                     ? Image.file(File(pet.photoPath!), fit: BoxFit.cover)
-                                    : Container(color: Colors.white, child: const Icon(Icons.pets, color: AppColors.primary, size: 20)),
+                                    : Container(color: AppColors.surfaceCard, child: const Icon(Icons.pets, color: AppColors.primary, size: 20)),
                               ),
                             ),
                           );
@@ -505,7 +506,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColors.surfaceCard,
                               shape: BoxShape.circle,
                               boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10)],
                             ),

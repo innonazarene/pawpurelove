@@ -60,11 +60,12 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                 left: 24, right: 24, bottom: 8,
               ),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                color: ThemeNotifier().isDarkMode ? AppColors.background : null,
+                 gradient: ThemeNotifier().isDarkMode ? null : LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.pastelBlue.withValues(alpha: 0.4),
+                    AppColors.pastelPink.withValues(alpha: 0.4),
                     AppColors.background,
                   ],
                 ),
@@ -117,7 +118,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
           children: [
             _buildWeightTab(),
             _buildLogTab(CareType.vaccination, Icons.vaccines_rounded, AppColors.success),
-            _buildLogTab(CareType.vetVisit, Icons.local_hospital_rounded, AppColors.health),
+            _buildLogTab(CareType.vetVisit, Icons.local_hospital_rounded, AppColors.dailyCare),
             _buildLogTab(CareType.symptom, Icons.healing_rounded, AppColors.warning),
           ],
         ),
@@ -154,10 +155,10 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                   width: 56,
                   height: 56,
                   decoration: BoxDecoration(
-                    color: AppColors.health.withValues(alpha: 0.12),
+                    color: AppColors.dailyCare.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Icon(Icons.monitor_weight_rounded, color: AppColors.health, size: 28),
+                  child: const Icon(Icons.monitor_weight_rounded, color: AppColors.dailyCare, size: 28),
                 ),
                 const SizedBox(width: 16),
                 Column(
@@ -215,14 +216,14 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                     lineBarsData: [
                       LineChartBarData(
                         spots: weightLogs.asMap().entries.map((e) => FlSpot(e.key.toDouble(), e.value.value!)).toList(),
-                        isCurved: true, color: AppColors.health, barWidth: 3,
+                        isCurved: true, color: AppColors.primary, barWidth: 3,
                         dotData: FlDotData(
                           show: true,
                           getDotPainter: (spot, percent, bar, index) => FlDotCirclePainter(
-                            radius: 4, color: Colors.white, strokeWidth: 2, strokeColor: AppColors.health,
+                            radius: 4, color: AppColors.surfaceCard, strokeWidth: 2, strokeColor: AppColors.primary,
                           ),
                         ),
-                        belowBarData: BarAreaData(show: true, color: AppColors.health.withValues(alpha: 0.08)),
+                        belowBarData: BarAreaData(show: true, color: AppColors.primary.withValues(alpha: 0.1)),
                       ),
                     ],
                   ),
@@ -234,7 +235,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
               borderColor: AppColors.pastelBlue.withValues(alpha: 0.5),
               child: Column(
                 children: [
-                  Icon(Icons.show_chart_rounded, size: 48, color: AppColors.health.withValues(alpha: 0.3)),
+                  Icon(Icons.show_chart_rounded, size: 48, color: AppColors.dailyCare.withValues(alpha: 0.3)),
                   const SizedBox(height: 12),
                   Text('Log at least 2 weight entries to see a chart', style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted), textAlign: TextAlign.center),
                 ],
@@ -250,7 +251,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
             const SizedBox(height: 8),
             ...weightLogs.reversed.take(10).map((log) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: _buildHealthLogTile(log, Icons.monitor_weight_rounded, AppColors.health),
+              child: _buildHealthLogTile(log, Icons.monitor_weight_rounded, AppColors.dailyCare),
             )),
           ],
         ],

@@ -77,8 +77,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   Color _getColorForType(CareType type) {
     switch (type.category) {
       case 'daily': return AppColors.dailyCare;
-      case 'health': return AppColors.health;
-      case 'memory': return AppColors.memory;
+      case 'health': return AppColors.dailyCare;
+      case 'memory': return AppColors.dailyCare;
       default: return AppColors.primary;
     }
   }
@@ -185,7 +185,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: color.withValues(alpha: 0.2)),
         boxShadow: [
@@ -264,7 +264,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)],
       ),
@@ -294,7 +294,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       height: 250,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)],
       ),
@@ -391,7 +391,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       height: 250,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)],
       ),
@@ -405,13 +405,13 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             LineChartBarData(
               spots: spots,
               isCurved: true,
-              color: AppColors.health,
+              color: AppColors.dailyCare,
               barWidth: 4,
               isStrokeCapRound: true,
               dotData: FlDotData(show: true),
               belowBarData: BarAreaData(
                 show: true,
-                color: AppColors.health.withValues(alpha: 0.2),
+                color: AppColors.dailyCare.withValues(alpha: 0.2),
               ),
             ),
           ],
