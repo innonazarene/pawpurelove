@@ -17,6 +17,7 @@ import 'add_edit_log_screen.dart';
 import 'pet_list_screen.dart';
 import 'activity_map_screen.dart';
 import 'walk_tracker_screen.dart';
+import 'analytics_screen.dart';
 import '../models/pet_schedule.dart';
 import '../services/notification_service.dart';
 
@@ -471,6 +472,22 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  _buildFeatureCard(
+                    icon: Icons.analytics_rounded,
+                    title: 'Analytics & Reports',
+                    subtitle: 'Activity distribution and insights',
+                    color: AppColors.primary,
+                    borderColor: AppColors.pastelPink,
+                    onTap: () {
+                      if (_profile != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => AnalyticsScreen(petId: _profile!.id)),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 12),
                   _buildFeatureCard(
                     icon: Icons.directions_walk_rounded,
                     title: 'Live Walk Tracker',
