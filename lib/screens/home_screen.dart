@@ -12,9 +12,10 @@ import 'daily_care_screen.dart';
 import 'health_screen.dart';
 import 'memory_screen.dart';
 import 'profile_screen.dart';
-import 'pet_list_screen.dart';
 import 'schedules_screen.dart';
 import 'add_edit_log_screen.dart';
+import 'pet_list_screen.dart';
+import 'activity_map_screen.dart';
 import '../models/pet_schedule.dart';
 import '../services/notification_service.dart';
 
@@ -515,6 +516,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => SchedulesScreen(petId: _profile!.id)),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  _buildFeatureCard(
+                    icon: Icons.map_rounded,
+                    title: 'Activity Map',
+                    subtitle: 'See exactly where memory milestones & walks took place',
+                    color: AppColors.info,
+                    borderColor: AppColors.pastelBlue,
+                    onTap: () {
+                      if (_profile != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => ActivityMapScreen(petId: _profile!.id)),
                         );
                       }
                     },
