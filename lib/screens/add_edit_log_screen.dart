@@ -293,7 +293,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                   ),
                 );
                 if (date != null && mounted) {
-                  final time = await showTimePicker(
+                 final time = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(_logDateTime),
                     builder: (context, child) => Theme(
@@ -302,6 +302,33 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
                           primary: AppColors.primary,
                           onPrimary: Colors.white,
                           onSurface: AppColors.textDark,
+                        ),
+                        timePickerTheme: TimePickerThemeData(
+                          hourMinuteTextStyle: GoogleFonts.inter(
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          dialTextStyle: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          dayPeriodTextStyle: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          helpTextStyle: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                        textButtonTheme: TextButtonThemeData(
+                          style: TextButton.styleFrom(
+                            textStyle: GoogleFonts.inter(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                       child: child!,

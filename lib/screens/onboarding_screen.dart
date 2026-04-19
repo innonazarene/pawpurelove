@@ -348,36 +348,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Breed
               _buildLabel('Breed'),
               Container(
                 decoration: BoxDecoration(
                   color: AppColors.pastelPink.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
-                ),
-                child: DropdownButtonFormField<String>(
-                  initialValue: _selectedBreed.isEmpty ? null : _selectedBreed,
-                  decoration: const InputDecoration(
-                    hintText: 'Choose your dog\'s breed',
-                    prefixIcon: Icon(Icons.pets_outlined, color: AppColors.primary),
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-                  ),
-                  isExpanded: true,
-                  icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.primary),
-                  items: DogBreed.allBreeds.map((b) {
-                    return DropdownMenuItem(
-                      value: b.name,
-                      child: Text(b.name, style: GoogleFonts.inter(fontSize: 15)),
-                    );
-                  }).toList(),
-                  onChanged: (v) => setState(() => _selectedBreed = v ?? ''),
-                ),
               ),
-              const SizedBox(height: 24),
+              child: DropdownButtonFormField<String>(
+                initialValue: _selectedBreed.isEmpty ? null : _selectedBreed,
+                decoration: const InputDecoration(
+                  hintText: 'Choose your dog\'s breed',
+                  prefixIcon: Icon(Icons.pets_outlined, color: AppColors.primary),
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14), // ← was 0/4
+                ),
+                isExpanded: true,
+                icon: const Padding(
+                  padding: EdgeInsets.only(right: 12), // ← keeps chevron off the edge
+                  child: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.primary),
+                ),
+                items: DogBreed.allBreeds.map((b) {
+                  return DropdownMenuItem(
+                    value: b.name,
+                    child: Text(b.name, style: GoogleFonts.inter(fontSize: 15)),
+                  );
+                }).toList(),
+                onChanged: (v) => setState(() => _selectedBreed = v ?? ''),
+              ),
+            ),
 
               // Gender
               _buildLabel('Gender'),
@@ -459,8 +460,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Expanded(
                     child: Slider(
                       value: _weight,
-                      min: 0.5,
-                      max: 80,
+                      min: 0.1,
+                      max: 20,
                       divisions: 159,
                       activeColor: AppColors.primary,
                       inactiveColor: AppColors.pastelPink,

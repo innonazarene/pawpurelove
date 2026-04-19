@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/pet_profile.dart';
 import '../models/care_log.dart';
+import '../models/pet_schedule.dart';
 
 class StorageService {
   static const String _petProfilesKey = 'pet_profiles';
   static const String _activePetKey = 'active_pet_id';
   static const String _careLogsKey = 'care_logs';
+  static const String _petSchedulesKey = 'pet_schedules';
   static const String _onboardingKey = 'onboarding_complete';
 
   static StorageService? _instance;
@@ -70,6 +72,11 @@ class StorageService {
     final logs = getAllCareLogs();
     logs.removeWhere((l) => l.petId == petId);
     await _prefs.setStringList(_careLogsKey, logs.map((l) => l.encode()).toList());
+
+    // Delete associated schedules
+    final schedules = getAllSchedules();
+    schedules.removeWhere((s) => s.petId == petId);
+    await _prefs.setStringList(_petSchedulesKey, schedules.map((s) => s.encode()).toList());
 
     // Update active pet if the deleted one was active
     final activePetId = getActivePetId();
@@ -210,6 +217,56 @@ class StorageService {
     } catch (_) {
       return null;
     }
+  }
+
+  // ===== Pet Schedules =====
+
+  Future<void> saveSchedule(PetSchedule schedule) async {
+    final schedules = getSchedulesRaw();
+    schedules.add(schedule.encode());
+    await _prefs.setStringList(_petSchedulesKey, schedules);
+  }
+
+  Future<void> updateSchedule(PetSchedule updatedSchedule) async {
+    final schedules = getAllSchedules();
+    final index = schedules.indexWhere((s) => s.id == updatedSchedule.id);
+    if (index != -1) {
+      schedules[index] = updatedSchedule;
+      await _prefs.setStringList(
+        _petSchedulesKey,
+        schedules.map((s) => s.encode()).toList(),
+      );
+    }
+  }
+
+  Future<void> deleteSchedule(String scheduleId) async {
+    final schedules = getAllSchedules();
+    schedules.removeWhere((s) => s.id == scheduleId);
+    await _prefs.setStringList(
+      _petSchedulesKey,
+      schedules.map((s) => s.encode()).toList(),
+    );
+  }
+
+  List<String> getSchedulesRaw() {
+    return _prefs.getStringList(_petSchedulesKey) ?? [];
+  }
+
+  List<PetSchedule> getAllSchedules() {
+    return getSchedulesRaw().map((s) {
+      try {
+        return PetSchedule.decode(s);
+      } catch (_) {
+        return null;
+      }
+    }).whereType<PetSchedule>().toList()
+      ..sort((a, b) => a.nextScheduledDate.compareTo(b.nextScheduledDate));
+  }
+
+  List<PetSchedule> getActivePetSchedules() {
+    final petId = getActivePetId();
+    if (petId == null) return [];
+    return getAllSchedules().where((s) => s.petId == petId).toList();
   }
 
   // Clear all data

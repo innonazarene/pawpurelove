@@ -13,6 +13,7 @@ import 'health_screen.dart';
 import 'memory_screen.dart';
 import 'profile_screen.dart';
 import 'pet_list_screen.dart';
+import 'schedules_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -462,6 +463,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderColor: AppColors.pastelPurple,
                     onTap: () => setState(() => _currentIndex = 3),
                   ),
+                  const SizedBox(height: 12),
+                  _buildFeatureCard(
+                    icon: Icons.schedule_rounded,
+                    title: 'Schedules & Reminders',
+                    subtitle: 'Daily routines and upcoming appointments',
+                    color: AppColors.warning,
+                    borderColor: AppColors.pastelYellow,
+                    onTap: () {
+                      if (_profile != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => SchedulesScreen(petId: _profile!.id)),
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
@@ -706,9 +723,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String _getGreeting() {
     final hour = DateTime.now().hour;
-    if (hour >= 5 && hour < 12) return 'Good Morning 🍌';
-    if (hour >= 12 && hour < 17) return 'Good Afternoon 🐶';
-    if (hour >= 17 && hour < 22) return 'Good Evening 🐾';
+    if (hour >= 5 && hour < 12) return 'Good Morning';
+    if (hour >= 12 && hour < 17) return 'Good Afternoon';
+    if (hour >= 17 && hour < 22) return 'Good Evening';
     return 'Hi Night Owl 🦉';
   }
 
