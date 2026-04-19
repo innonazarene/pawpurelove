@@ -72,10 +72,13 @@ class NotificationService {
   }
 
   Future<void> schedulePetNotification(PetSchedule schedule, String petName) async {
-    // Generate a unique integer ID from the schedule ID (assumed UUID or timestamp)
-    final int id = schedule.id.hashCode;
+    // Generate a unique 32-bit positive integer ID
+    final int id = schedule.id.hashCode.abs() & 0x7FFFFFFF;
 
-    final androidDetails = AndroidNotificationDetails(
+    // Ensure permissions are granted before scheduling
+    await requestPermissions();
+
+    final androidDetails = const AndroidNotificationDetails(
       'pawpurelove_schedules',
       'Care Schedules',
       channelDescription: 'Notifications for pet care routines and health schedules.',
@@ -166,7 +169,8 @@ class NotificationService {
 
   // flutter_local_notifications 21.0.0: cancel() now takes a named 'id' parameter
   Future<void> cancelNotification(String scheduleId) async {
-    await _notificationsPlugin.cancel(id: scheduleId.hashCode);
+    final int id = scheduleId.hashCode.abs() & 0x7FFFFFFF;
+    await _notificationsPlugin.cancel(id: id);
   }
 
   Future<void> cancelAllNotifications() async {
