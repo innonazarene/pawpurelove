@@ -21,6 +21,7 @@ class CareLogDetailScreen extends StatefulWidget {
 
 class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
   CareLog? _log;
+  bool _wasEdited = false;
 
   @override
   void initState() {
@@ -79,6 +80,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
       ),
     );
     if (result == true) {
+      _wasEdited = true;
       _loadLog();
     }
   }
@@ -95,9 +97,16 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
     final log = _log!;
     final color = _getColorForType(log.type);
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: CustomScrollView(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) {
+          Navigator.pop(context, _wasEdited);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body: CustomScrollView(
         slivers: [
           // App Bar
           SliverAppBar(
@@ -105,7 +114,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
             pinned: true,
             backgroundColor: AppColors.background,
             leading: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context, _wasEdited),
               icon: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
@@ -219,7 +228,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${log.value!.toStringAsFixed(1)} ${log.unit ?? ''}',
+                                '${log.value!.toStringAsFixed(2)} ${log.unit ?? ''}',
                                 style: GoogleFonts.poppins(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w700,
@@ -412,6 +421,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
             ),
           ),
         ],
+      ),
       ),
     );
   }

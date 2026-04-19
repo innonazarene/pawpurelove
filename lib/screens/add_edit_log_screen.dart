@@ -45,7 +45,7 @@ class _AddEditLogScreenState extends State<AddEditLogScreen> {
       _selectedType = log.type;
       _titleController.text = log.title ?? '';
       _notesController.text = log.notes ?? '';
-      if (log.value != null) _valueController.text = log.value!.toStringAsFixed(1);
+      if (log.value != null) _valueController.text = log.value!.toStringAsFixed(2);
       _imagePaths = List.from(log.imagePaths);
       _latitude = log.latitude;
       _longitude = log.longitude;

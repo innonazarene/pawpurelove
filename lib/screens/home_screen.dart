@@ -469,54 +469,19 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _buildFeatureCard(
-                    icon: Icons.restaurant_rounded,
-                    title: 'Daily Care',
-                    subtitle: 'Feeding, walks, grooming & more',
-                    color: AppColors.dailyCare,
-                    borderColor: AppColors.pastelPink,
-                    onTap: () {
-                      setState(() => _currentIndex = 1);
-                      _pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  _buildFeatureCard(
-                    icon: Icons.monitor_heart_rounded,
-                    title: 'Health & Wellness',
-                    subtitle: 'Vaccinations, weight, vet visits',
-                    color: AppColors.health,
-                    borderColor: AppColors.pastelBlue,
-                    onTap: () {
-                      setState(() => _currentIndex = 2);
-                      _pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  _buildFeatureCard(
-                    icon: Icons.photo_album_rounded,
-                    title: 'Memories & Joy',
-                    subtitle: 'Milestones, notes & beautiful moments',
-                    color: AppColors.memory,
-                    borderColor: AppColors.pastelPurple,
-                    onTap: () {
-                      setState(() => _currentIndex = 3);
-                      _pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  _buildFeatureCard(
-                    icon: Icons.schedule_rounded,
-                    title: 'Schedules & Reminders',
-                    subtitle: 'Daily routines and upcoming appointments',
-                    color: AppColors.warning,
-                    borderColor: AppColors.pastelYellow,
+                    icon: Icons.directions_walk_rounded,
+                    title: 'Live Walk Tracker',
+                    subtitle: 'Track your live route with GPS',
+                    color: AppColors.success,
+                    borderColor: AppColors.pastelGreen,
                     onTap: () {
                       if (_profile != null) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => SchedulesScreen(petId: _profile!.id)),
+                          MaterialPageRoute(builder: (_) => WalkTrackerScreen(petId: _profile!.id)),
                         );
                       }
                     },
@@ -539,19 +504,82 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 12),
                   _buildFeatureCard(
-                    icon: Icons.directions_walk_rounded,
-                    title: 'Live Walk Tracker',
-                    subtitle: 'Track your live route with GPS',
-                    color: AppColors.success,
-                    borderColor: AppColors.pastelGreen,
+                    icon: Icons.schedule_rounded,
+                    title: 'Schedules & Reminders',
+                    subtitle: 'Daily routines and upcoming appointments',
+                    color: AppColors.warning,
+                    borderColor: AppColors.pastelYellow,
                     onTap: () {
                       if (_profile != null) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => WalkTrackerScreen(petId: _profile!.id)),
+                          MaterialPageRoute(builder: (_) => SchedulesScreen(petId: _profile!.id)),
                         );
                       }
                     },
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Text('Core Modules', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textBrown)),
+                      const SizedBox(width: 8),
+                      Expanded(child: Container(height: 1, color: Colors.grey.withValues(alpha: 0.2))),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 1.1,
+                    children: [
+                      _buildGridFeatureCard(
+                        icon: Icons.home_rounded,
+                        title: 'Home',
+                        subtitle: 'Dashboard overview',
+                        color: AppColors.primary,
+                        borderColor: AppColors.pastelPink,
+                        onTap: () {
+                          setState(() => _currentIndex = 0);
+                          _pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                        },
+                      ),
+                      _buildGridFeatureCard(
+                        icon: Icons.restaurant_rounded,
+                        title: 'Daily Care',
+                        subtitle: 'Feeding & grooming',
+                        color: AppColors.dailyCare,
+                        borderColor: AppColors.pastelPink,
+                        onTap: () {
+                          setState(() => _currentIndex = 1);
+                          _pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                        },
+                      ),
+                      _buildGridFeatureCard(
+                        icon: Icons.monitor_heart_rounded,
+                        title: 'Health',
+                        subtitle: 'Vaccines & vet',
+                        color: AppColors.health,
+                        borderColor: AppColors.pastelBlue,
+                        onTap: () {
+                          setState(() => _currentIndex = 2);
+                          _pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                        },
+                      ),
+                      _buildGridFeatureCard(
+                        icon: Icons.photo_album_rounded,
+                        title: 'Memory',
+                        subtitle: 'Moments & notes',
+                        color: AppColors.memory,
+                        borderColor: AppColors.pastelPurple,
+                        onTap: () {
+                          setState(() => _currentIndex = 3);
+                          _pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -836,7 +864,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    _buildInfoChip(Icons.monitor_weight_outlined, '${_profile!.weight.toStringAsFixed(1)} kg'),
+                    _buildInfoChip(Icons.monitor_weight_outlined, '${_profile!.weight.toStringAsFixed(2)} kg'),
                     const SizedBox(width: 8),
                     _buildInfoChip(
                       _profile!.gender == 'Male' ? Icons.male_rounded : Icons.female_rounded,
@@ -915,6 +943,55 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Icon(Icons.chevron_right_rounded, color: color.withValues(alpha: 0.5)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGridFeatureCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required Color borderColor,
+    required VoidCallback onTap,
+  }) {
+    return PawCard(
+      borderColor: borderColor,
+      onTap: onTap,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(icon, color: color, size: 24),
+          ),
+          const Spacer(),
+          Text(
+            title,
+            style: GoogleFonts.nunito(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: AppColors.textDark,
+              height: 1.2,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: GoogleFonts.nunito(
+              fontSize: 12,
+              color: AppColors.textMuted,
+              height: 1.2,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );

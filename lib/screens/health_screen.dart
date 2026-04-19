@@ -48,8 +48,11 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (context, _) => [
+      body: RefreshIndicator(
+        onRefresh: _loadData,
+        color: AppColors.primary,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, _) => [
           SliverToBoxAdapter(
             child: Container(
               padding: EdgeInsets.only(
@@ -119,6 +122,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
           ],
         ),
       ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         heroTag: 'health_fab',
         onPressed: _showAddHealthLog,
@@ -161,7 +165,7 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
                   children: [
                     Text('Current Weight', style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted)),
                     Text(
-                      '${_profile?.weight.toStringAsFixed(1) ?? '0.0'} kg',
+                      '${_profile?.weight.toStringAsFixed(2) ?? '0.0'} kg',
                       style: GoogleFonts.poppins(
                         fontSize: 28, fontWeight: FontWeight.w700, color: AppColors.textBrown,
                       ),

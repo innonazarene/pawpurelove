@@ -37,8 +37,11 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: RefreshIndicator(
+        onRefresh: _loadData,
+        color: AppColors.primary,
+        child: CustomScrollView(
+          slivers: [
           // Header
           SliverToBoxAdapter(
             child: Container(
@@ -164,6 +167,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
 
           const SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
+      ),
       ),
     );
   }

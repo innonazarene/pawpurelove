@@ -41,8 +41,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: RefreshIndicator(
+        onRefresh: _loadData,
+        color: AppColors.primary,
+        child: CustomScrollView(
+          slivers: [
           // Header
           SliverToBoxAdapter(
             child: Container(
@@ -184,6 +187,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
           const SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
+      ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         heroTag: 'memory_fab',

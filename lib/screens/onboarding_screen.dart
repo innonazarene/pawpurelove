@@ -465,7 +465,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       divisions: 159,
                       activeColor: AppColors.primary,
                       inactiveColor: AppColors.pastelPink,
-                      label: '${_weight.toStringAsFixed(1)} kg',
+                      label: '${_weight.toStringAsFixed(2)} kg',
                       onChanged: (v) => setState(() => _weight = v),
                     ),
                   ),
@@ -476,7 +476,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      '${_weight.toStringAsFixed(1)} kg',
+                      '${_weight.toStringAsFixed(2)} kg',
                       style: GoogleFonts.nunito(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,

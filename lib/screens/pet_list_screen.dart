@@ -215,7 +215,7 @@ class _PetListScreenState extends State<PetListScreen> {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      _buildChip(Icons.monitor_weight_outlined, '${pet.weight.toStringAsFixed(1)} kg'),
+                      _buildChip(Icons.monitor_weight_outlined, '${pet.weight.toStringAsFixed(2)} kg'),
                       const SizedBox(width: 6),
                       _buildChip(
                         pet.gender == 'Male' ? Icons.male_rounded : Icons.female_rounded,

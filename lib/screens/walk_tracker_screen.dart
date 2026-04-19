@@ -9,6 +9,8 @@ import '../models/care_log.dart';
 import '../services/storage_service.dart';
 import '../services/image_location_service.dart';
 import '../theme/app_theme.dart';
+import 'dart:io';
+import '../models/pet_profile.dart';
 
 class WalkTrackerScreen extends StatefulWidget {
   final String petId;
@@ -24,6 +26,9 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
   bool _isTracking = false;
   bool _hasStarted = false;
   bool _isLoadingLocation = true;
+  
+  List<PetProfile> _allPets = [];
+  Set<String> _selectedPetIds = {};
   
   StreamSubscription<Position>? _positionStream;
   Timer? _timer;
@@ -43,6 +48,11 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
   }
   
   Future<void> _initLocation() async {
+    final storage = await StorageService.getInstance();
+    setState(() {
+      _allPets = storage.getAllPetProfiles();
+      _selectedPetIds.add(widget.petId);
+    });
     // Check permission
     final startLoc = await ImageLocationService.getCurrentLocation();
     if (startLoc != null) {
@@ -192,20 +202,22 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
 
     final storage = await StorageService.getInstance();
     
-    final newLog = CareLog(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      petId: widget.petId,
-      type: CareType.walk,
-      dateTime: DateTime.now(),
-      title: 'GPS Walk Tracked',
-      notes: 'Walked ${(_distanceMeters / 1000).toStringAsFixed(2)} km in ${_formatDuration(_secondsElapsed)}.',
-      latitude: _routePoints.last.latitude,
-      longitude: _routePoints.last.longitude,
-      locationName: locationName,
-      routeCoordinates: pathArray,
-    );
+    for (String id in _selectedPetIds) {
+      final newLog = CareLog(
+        id: DateTime.now().millisecondsSinceEpoch.toString() + id,
+        petId: id,
+        type: CareType.walk,
+        dateTime: DateTime.now(),
+        title: 'GPS Walk Tracked',
+        notes: 'Walked ${(_distanceMeters / 1000).toStringAsFixed(2)} km in ${_formatDuration(_secondsElapsed)}.',
+        latitude: _routePoints.last.latitude,
+        longitude: _routePoints.last.longitude,
+        locationName: locationName,
+        routeCoordinates: pathArray,
+      );
 
-    await storage.saveCareLog(newLog);
+      await storage.saveCareLog(newLog);
+    }
     
     if (mounted) {
       Navigator.pop(context); // Go back after saving
@@ -373,6 +385,58 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                     ),
                   ),
 
+                if (!_hasStarted && _allPets.length > 1)
+                  Positioned(
+                    right: 16,
+                    top: MediaQuery.of(context).padding.top + 160,
+                    bottom: 120, // leave space for start button
+                    child: Container(
+                      width: 65,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)],
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: ListView.builder(
+                        itemCount: _allPets.length,
+                        itemBuilder: (context, index) {
+                          final pet = _allPets[index];
+                          final isSelected = _selectedPetIds.contains(pet.id);
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (isSelected && _selectedPetIds.length > 1) {
+                                  _selectedPetIds.remove(pet.id);
+                                } else {
+                                  _selectedPetIds.add(pet.id);
+                                }
+                              });
+                            },
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              margin: const EdgeInsets.only(bottom: 12, left: 8, right: 8),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: isSelected ? AppColors.primary : Colors.transparent,
+                                  width: 3,
+                                ),
+                                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 4)],
+                              ),
+                              child: ClipOval(
+                                child: pet.photoPath != null && File(pet.photoPath!).existsSync()
+                                    ? Image.file(File(pet.photoPath!), fit: BoxFit.cover)
+                                    : Container(color: Colors.white, child: const Icon(Icons.pets, color: AppColors.primary, size: 20)),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+
                 // Control Buttons Bottom
                 Positioned(
                   bottom: 40,
@@ -382,6 +446,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (!_hasStarted) ...[
+
                         GestureDetector(
                           onTap: _startTracking,
                           child: Container(
