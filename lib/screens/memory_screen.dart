@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 import '../theme/app_theme.dart';
 import '../models/pet_profile.dart';
 import '../models/care_log.dart';
@@ -10,6 +11,7 @@ import '../services/image_location_service.dart';
 import '../widgets/common_widgets.dart';
 import 'add_edit_log_screen.dart';
 import 'care_log_detail_screen.dart';
+import 'activity_map_screen.dart';
 
 class MemoryScreen extends StatefulWidget {
   const MemoryScreen({super.key});
@@ -379,7 +381,19 @@ class _MemoryScreenState extends State<MemoryScreen> {
                         if (log.hasImages && log.hasLocation) const SizedBox(width: 8),
                         if (log.hasLocation)
                           GestureDetector(
-                            onTap: () => ImageLocationService.openInMaps(log.latitude!, log.longitude!, label: log.locationName),
+                            onTap: () {
+                              if (_profile != null && log.latitude != null && log.longitude != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ActivityMapScreen(
+                                      petId: _profile!.id,
+                                      initialCoordinate: LatLng(log.latitude!, log.longitude!),
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
                             child: _buildBadge(Icons.location_on_rounded, log.locationName ?? 'Map', AppColors.health),
                           ),
                       ],

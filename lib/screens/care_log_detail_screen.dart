@@ -7,6 +7,8 @@ import '../models/care_log.dart';
 import '../services/storage_service.dart';
 import '../services/image_location_service.dart';
 import 'add_edit_log_screen.dart';
+import 'activity_map_screen.dart';
+import 'package:latlong2/latlong.dart';
 
 class CareLogDetailScreen extends StatefulWidget {
   final String logId;
@@ -279,11 +281,19 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                     ),
                     const SizedBox(height: 8),
                     GestureDetector(
-                      onTap: () => ImageLocationService.openInMaps(
-                        log.latitude!,
-                        log.longitude!,
-                        label: log.locationName,
-                      ),
+                      onTap: () {
+                        if (log.latitude != null && log.longitude != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ActivityMapScreen(
+                                petId: log.petId,
+                                initialCoordinate: LatLng(log.latitude!, log.longitude!),
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(18),

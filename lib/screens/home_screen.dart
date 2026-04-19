@@ -682,8 +682,14 @@ class _HomeScreenState extends State<HomeScreen> {
     if (schedule.frequency == ScheduleFrequency.once) {
       updatedSchedule = schedule.copyWith(isActive: false);
     } else {
+      DateTime nextDate = NotificationService().calculateNext(schedule.nextScheduledDate, schedule.frequency);
+      
+      while (nextDate.isBefore(DateTime.now())) {
+        nextDate = NotificationService().calculateNext(nextDate, schedule.frequency);
+      }
+
       updatedSchedule = schedule.copyWith(
-        nextScheduledDate: NotificationService().calculateNext(schedule.nextScheduledDate, schedule.frequency),
+        nextScheduledDate: nextDate,
       );
       // Re-schedule native notification for the next cycle
       await NotificationService().schedulePetNotification(updatedSchedule, _profile?.name ?? 'Pet');

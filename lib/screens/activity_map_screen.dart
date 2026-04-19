@@ -19,7 +19,8 @@ class LocationCluster {
 
 class ActivityMapScreen extends StatefulWidget {
   final String petId;
-  const ActivityMapScreen({super.key, required this.petId});
+  final LatLng? initialCoordinate;
+  const ActivityMapScreen({super.key, required this.petId, this.initialCoordinate});
 
   @override
   State<ActivityMapScreen> createState() => _ActivityMapScreenState();
@@ -61,10 +62,10 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
       _clusters = grouped.values.toList();
       if (_clusters.isNotEmpty) {
         // Find rough center of all points or just use the first point
-        _initialCenter = _clusters.first.coordinate;
+        _initialCenter = widget.initialCoordinate ?? _clusters.first.coordinate;
       } else {
         // Default coordinate if no logs exist (e.g., global center)
-        _initialCenter = const LatLng(0, 0);
+        _initialCenter = widget.initialCoordinate ?? const LatLng(0, 0);
       }
       _isLoading = false;
     });
@@ -187,8 +188,8 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                   mapController: _mapController,
                   options: MapOptions(
                     initialCenter: _initialCenter ?? const LatLng(0, 0),
-                    initialZoom: 14.0,
-                    maxZoom: 18.0,
+                    initialZoom: 16.5,
+                    maxZoom: 22.0,
                   ),
                   children: [
                     TileLayer(
@@ -304,7 +305,7 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
                     child: const Icon(Icons.my_location_rounded),
                     onPressed: () {
                       if (_initialCenter != null) {
-                        _mapController.move(_initialCenter!, 14.0);
+                        _mapController.move(_initialCenter!, 16.5);
                       }
                     },
                   ),
