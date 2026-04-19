@@ -443,7 +443,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: 'Feeding, walks, grooming & more',
                     color: AppColors.dailyCare,
                     borderColor: AppColors.pastelPink,
-                    onTap: () => setState(() => _currentIndex = 1),
+                    onTap: () {
+                      setState(() => _currentIndex = 1);
+                      _pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    },
                   ),
                   const SizedBox(height: 12),
                   _buildFeatureCard(
@@ -452,7 +455,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: 'Vaccinations, weight, vet visits',
                     color: AppColors.health,
                     borderColor: AppColors.pastelBlue,
-                    onTap: () => setState(() => _currentIndex = 2),
+                    onTap: () {
+                      setState(() => _currentIndex = 2);
+                      _pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    },
                   ),
                   const SizedBox(height: 12),
                   _buildFeatureCard(
@@ -461,7 +467,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: 'Milestones, notes & beautiful moments',
                     color: AppColors.memory,
                     borderColor: AppColors.pastelPurple,
-                    onTap: () => setState(() => _currentIndex = 3),
+                    onTap: () {
+                      setState(() => _currentIndex = 3);
+                      _pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    },
                   ),
                   const SizedBox(height: 12),
                   _buildFeatureCard(
