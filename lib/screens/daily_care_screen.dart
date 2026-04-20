@@ -50,7 +50,8 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
                 left: 24, right: 24, bottom: 16,
               ),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                color: ThemeNotifier().isDarkMode ? AppColors.background : null,
+                gradient: ThemeNotifier().isDarkMode ? null : LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
@@ -104,7 +105,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
                     icon: Icons.water_drop_rounded,
                     title: 'Water',
                     subtitle: 'Track intake',
-                    color: AppColors.info,
+                    color: AppColors.dailyCare,
                     bgColor: const Color(0xFFE8F4FD),
                     type: CareType.water,
                   ),
@@ -112,7 +113,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
                     icon: Icons.directions_walk_rounded,
                     title: 'Walks',
                     subtitle: 'Exercise & strolls',
-                    color: AppColors.success,
+                    color: AppColors.dailyCare,
                     bgColor: const Color(0xFFE8F5E9),
                     type: CareType.walk,
                   ),
@@ -120,7 +121,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
                     icon: Icons.shower_rounded,
                     title: 'Grooming',
                     subtitle: 'Bath & brushing',
-                    color: AppColors.memory,
+                    color: AppColors.dailyCare,
                     bgColor: const Color(0xFFF3E8FD),
                     type: CareType.grooming,
                   ),
@@ -185,7 +186,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: bgColor,
+          color: ThemeNotifier().isDarkMode ? AppColors.surfaceCard : bgColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: color.withValues(alpha: 0.15)),
         ),
@@ -221,7 +222,7 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surfaceCard,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.grey.withValues(alpha: 0.08)),
         ),
@@ -357,10 +358,10 @@ class _DailyCareScreenState extends State<DailyCareScreen> {
   Color _getColor(CareType type) {
     switch (type) {
       case CareType.feeding: return AppColors.dailyCare;
-      case CareType.water: return AppColors.info;
-      case CareType.walk: return AppColors.success;
-      case CareType.grooming: return AppColors.memory;
-      default: return AppColors.primary;
+      case CareType.water: return AppColors.dailyCare;
+      case CareType.walk: return AppColors.dailyCare;
+      case CareType.grooming: return AppColors.dailyCare;
+      default: return AppColors.dailyCare;
     }
   }
 

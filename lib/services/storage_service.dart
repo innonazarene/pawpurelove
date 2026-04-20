@@ -9,6 +9,7 @@ class StorageService {
   static const String _careLogsKey = 'care_logs';
   static const String _petSchedulesKey = 'pet_schedules';
   static const String _onboardingKey = 'onboarding_complete';
+  static const String _themeModeKey = 'is_dark_mode';
 
   static StorageService? _instance;
   late SharedPreferences _prefs;
@@ -26,6 +27,10 @@ class StorageService {
   // Onboarding
   bool get isOnboardingComplete => _prefs.getBool(_onboardingKey) ?? false;
   Future<void> setOnboardingComplete() => _prefs.setBool(_onboardingKey, true);
+
+  // Theme
+  bool get isDarkMode => _prefs.getBool(_themeModeKey) ?? false;
+  Future<void> setDarkMode(bool value) => _prefs.setBool(_themeModeKey, value);
 
   // ===== Multiple Pet Profiles =====
 

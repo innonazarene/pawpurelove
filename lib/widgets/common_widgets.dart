@@ -24,7 +24,7 @@ class PawCard extends StatelessWidget {
       child: Container(
         padding: padding ?? const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: backgroundColor ?? Colors.white,
+          color: backgroundColor ?? AppColors.surfaceCard,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: borderColor ?? AppColors.pastelPink.withValues(alpha: 0.5),
@@ -223,7 +223,7 @@ class CareLogTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.surfaceCard,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.grey.withValues(alpha: 0.08)),
           ),

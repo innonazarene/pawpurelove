@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'theme/app_theme.dart';
 import 'screens/splash_screen.dart';
 import 'services/notification_service.dart';
+import 'theme/theme_notifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().init();
+  await ThemeNotifier().init();
 
   // Set status bar style
   SystemChrome.setSystemUIOverlayStyle(
@@ -31,11 +33,16 @@ class PawureLoveApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PawureLove',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
+    return ListenableBuilder(
+      listenable: ThemeNotifier(),
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'PawureLove',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme, // This getter now dynamically fetches the proper colors
+          home: const SplashScreen(),
+        );
+      },
     );
   }
 }

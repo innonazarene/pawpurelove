@@ -177,7 +177,7 @@ class _SchedulesScreenState extends State<SchedulesScreen> {
                   activeColor: AppColors.primary,
                 ),
                 PopupMenuButton(
-                  icon: const Icon(Icons.more_vert_rounded, color: AppColors.textMuted),
+                  icon: Icon(Icons.more_vert_rounded, color: AppColors.textMuted),
                   itemBuilder: (context) => [
                     const PopupMenuItem(
                       value: 'edit',
@@ -243,7 +243,7 @@ class _SchedulesScreenState extends State<SchedulesScreen> {
 
   Color _getColorForType(CareType type) {
     switch (type.category) {
-      case 'daily': return AppColors.dailyCare;
+      case 'daily': return AppColors.warning;
       case 'health': return AppColors.health;
       case 'memory': return AppColors.memory;
       default: return AppColors.primary;

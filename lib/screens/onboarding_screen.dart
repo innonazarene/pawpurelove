@@ -519,7 +519,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _buildNumberPicker(int value, int min, int max, ValueChanged<int> onChanged) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
       ),

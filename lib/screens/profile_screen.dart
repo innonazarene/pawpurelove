@@ -167,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_rounded),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textDark, size: 20),
         ),
         actions: [
           TextButton(
@@ -451,7 +451,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildNumberPicker(int value, int min, int max, ValueChanged<int> onChanged) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
       ),
