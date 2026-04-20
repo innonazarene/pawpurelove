@@ -5,7 +5,9 @@ import '../theme/app_theme.dart';
 import '../models/pet_profile.dart';
 import '../services/storage_service.dart';
 import '../services/image_location_service.dart';
+import '../services/notification_service.dart';
 import '../widgets/common_widgets.dart';
+import 'package:intl/intl.dart';
 
 class ProfileScreen extends StatefulWidget {
   final bool isNewPet;
@@ -26,6 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int _ageMonths = 0;
   double _weight = 1.0;
   String? _photoPath;
+  DateTime? _dateOfBirth;
+  bool _isDeceased = false;
 
   bool get _isNew => widget.isNewPet || _profile == null;
 
@@ -57,6 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _ageMonths = profile.ageMonths;
         _weight = profile.weight;
         _photoPath = profile.photoPath;
+        _dateOfBirth = profile.dateOfBirth;
+        _isDeceased = profile.isDeceased;
       });
     }
   }
@@ -110,9 +116,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         gender: _selectedGender,
         weight: _weight,
         photoPath: _photoPath,
+        dateOfBirth: _dateOfBirth,
+        isDeceased: _isDeceased,
       );
       await storage.addPetProfile(newProfile);
       await storage.setActivePetId(newProfile.id);
+
+      if (newProfile.dateOfBirth != null) {
+        await NotificationService().scheduleBirthdayNotification(newProfile);
+      }
     } else {
       // Updating existing pet
       final updatedProfile = PetProfile(
@@ -124,9 +136,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         gender: _selectedGender,
         weight: _weight,
         photoPath: _photoPath,
+        dateOfBirth: _dateOfBirth,
+        isDeceased: _isDeceased,
         createdAt: _profile!.createdAt,
       );
       await storage.updatePetProfile(updatedProfile);
+
+      if (updatedProfile.isDeceased) {
+        await NotificationService().cancelBirthdayNotification(updatedProfile.id);
+      } else if (updatedProfile.dateOfBirth != null) {
+        await NotificationService().scheduleBirthdayNotification(updatedProfile);
+      } else {
+        await NotificationService().cancelBirthdayNotification(updatedProfile.id);
+      }
     }
 
     if (!mounted) return;
@@ -246,7 +268,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       margin: EdgeInsets.only(right: g == 'Male' ? 8 : 0, left: g == 'Female' ? 8 : 0),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       decoration: BoxDecoration(
-                        color: isSelected ? AppColors.primary : Colors.white,
+                        color: isSelected ? AppColors.primary : AppColors.surfaceCard,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
                           color: isSelected ? AppColors.primary : AppColors.primary.withValues(alpha: 0.2),
@@ -255,7 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                           Icon(
                             g == 'Male' ? Icons.male_rounded : Icons.female_rounded,
                             color: isSelected ? Colors.white : AppColors.primary,
                             size: 22,
@@ -278,8 +300,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Age
-            _buildLabel('Age'),
+            // Birthday
+            _buildLabel('Date of Birth (Optional)'),
+            GestureDetector(
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: _dateOfBirth ?? DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime.now(),
+                );
+                if (date != null) {
+                  setState(() => _dateOfBirth = date);
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                decoration: BoxDecoration(
+                  color: AppColors.pastelPink.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _dateOfBirth != null
+                          ? DateFormat('MMMM d, yyyy').format(_dateOfBirth!)
+                          : 'Select Birthday',
+                      style: GoogleFonts.nunito(
+                        fontSize: 16,
+                        color: _dateOfBirth != null ? AppColors.textDark : AppColors.textMuted,
+                      ),
+                    ),
+                    const Icon(Icons.cake_rounded, color: AppColors.primary),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Age (Legacy/Fallback mode when no DOB)
+            if (_dateOfBirth == null) ...[
+              _buildLabel('Age (Fallback if no DOB)'),
             Row(
               children: [
                 Expanded(
@@ -306,6 +369,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             const SizedBox(height: 24),
+            ],
 
             // Weight
             _buildLabel('Weight (kg)'),
@@ -314,7 +378,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Expanded(
                   child: Slider(
                     value: _weight,
-                    min: 0.5,
+                    min: 0.1,
                     max: 80,
                     divisions: 159,
                     activeColor: AppColors.primary,
@@ -340,7 +404,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 24),
+
+            // Status Switch
+            if (!_isNew) ...[
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceCard,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Passed Away', style: GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textDark)),
+                        Text('Move to Memorial section', style: GoogleFonts.nunito(fontSize: 13, color: AppColors.textMuted)),
+                      ],
+                    ),
+                    Switch(
+                      value: _isDeceased,
+                      activeColor: AppColors.primary,
+                      onChanged: (val) {
+                        setState(() => _isDeceased = val);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+            ],
 
             // Save button
             GradientButton(

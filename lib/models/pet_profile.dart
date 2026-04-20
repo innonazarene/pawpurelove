@@ -9,6 +9,8 @@ class PetProfile {
   String gender;
   double weight;
   String? photoPath;
+  DateTime? dateOfBirth;
+  bool isDeceased;
   DateTime createdAt;
 
   PetProfile({
@@ -20,10 +22,35 @@ class PetProfile {
     this.gender = 'Male',
     this.weight = 0.0,
     this.photoPath,
+    this.dateOfBirth,
+    this.isDeceased = false,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
   String get ageDisplay {
+    if (dateOfBirth != null) {
+      final now = DateTime.now();
+      int years = now.year - dateOfBirth!.year;
+      int months = now.month - dateOfBirth!.month;
+      if (now.day < dateOfBirth!.day) {
+        months--;
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      if (years > 0 && months > 0) {
+        return '$years yr${years > 1 ? 's' : ''} $months mo';
+      } else if (years > 0) {
+        return '$years year${years > 1 ? 's' : ''} old';
+      } else if (months > 0) {
+        return '$months month${months > 1 ? 's' : ''} old';
+      } else {
+        return 'Newborn';
+      }
+    }
+    
+    // fallback
     if (ageYears > 0 && ageMonths > 0) {
       return '$ageYears yr${ageYears > 1 ? 's' : ''} $ageMonths mo';
     } else if (ageYears > 0) {
@@ -42,6 +69,8 @@ class PetProfile {
     'gender': gender,
     'weight': weight,
     'photoPath': photoPath,
+    'dateOfBirth': dateOfBirth?.toIso8601String(),
+    'isDeceased': isDeceased,
     'createdAt': createdAt.toIso8601String(),
   };
 
@@ -54,6 +83,8 @@ class PetProfile {
     gender: json['gender'] ?? 'Male',
     weight: (json['weight'] ?? 0.0).toDouble(),
     photoPath: json['photoPath'],
+    dateOfBirth: json['dateOfBirth'] != null ? DateTime.tryParse(json['dateOfBirth']) : null,
+    isDeceased: json['isDeceased'] ?? false,
     createdAt: DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
   );
 

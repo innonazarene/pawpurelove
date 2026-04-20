@@ -19,8 +19,10 @@ import 'activity_map_screen.dart';
 import 'walk_tracker_screen.dart';
 import 'analytics_screen.dart';
 import '../models/pet_schedule.dart';
+import '../models/pet_schedule.dart';
 import '../services/notification_service.dart';
 import '../theme/theme_notifier.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final storage = await StorageService.getInstance();
     setState(() {
       _profile = storage.getActivePet();
-      _allPets = storage.getAllPetProfiles();
+      _allPets = storage.getLivingPetProfiles();
       _todayLogs = storage.getTodaysLogs();
       _currentQuote = PetQuotes.getRandomQuote();
       if (_profile != null) {
@@ -97,23 +99,28 @@ class _HomeScreenState extends State<HomeScreen> {
         children: screens,
       ),
       floatingActionButton: _profile != null
-          ? FloatingActionButton(
-              onPressed: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => AddEditLogScreen(petId: _profile!.id)),
-                );
-                if (result == true) _triggerGlobalRefresh();
-              },
-              backgroundColor: AppColors.primary,
-              elevation: 4,
-              shape: const CircleBorder(),
-              child: const Icon(Icons.pets_rounded, color: Colors.white, size: 28),
+          ? SizedBox(
+              height: 68,
+              width: 68,
+              child: FloatingActionButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => AddEditLogScreen(petId: _profile!.id)),
+                  );
+                  if (result == true) _triggerGlobalRefresh();
+                },
+                backgroundColor: AppColors.primary,
+                elevation: 4,
+                shape: const CircleBorder(),
+                child: const Icon(Icons.pets_rounded, color: Colors.white, size: 36),
+              ),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
       bottomNavigationBar: BottomAppBar(
-        color: AppColors.surfaceCard,
+        color: AppColors.surfaceCard.withValues(alpha: 0.98),
         elevation: 8,
         shadowColor: Colors.black.withValues(alpha: 0.3),
         shape: const CircularNotchedRectangle(),
@@ -231,7 +238,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         splashRadius: 24,
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 4),
+                      IconButton(
+                        icon: const Icon(Icons.settings_rounded),
+                        color: AppColors.primary,
+                        splashRadius: 24,
+                        onPressed: () async {
+                           await Navigator.push(
+                             context,
+                             MaterialPageRoute(builder: (_) => const SettingsScreen()),
+                           );
+                           _loadData();
+                        },
+                      ),
+                      const SizedBox(width: 4),
                       _buildNotificationBell(),
                       const SizedBox(width: 16),
                       GestureDetector(
@@ -624,7 +644,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 100)), // Extra padding for extendBody
         ],
       ),
     );

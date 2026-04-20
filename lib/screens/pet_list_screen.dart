@@ -28,7 +28,7 @@ class _PetListScreenState extends State<PetListScreen> {
   Future<void> _loadPets() async {
     final storage = await StorageService.getInstance();
     setState(() {
-      _pets = storage.getAllPetProfiles();
+      _pets = storage.getLivingPetProfiles();
       _activePetId = storage.getActivePetId();
     });
   }

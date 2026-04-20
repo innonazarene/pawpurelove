@@ -27,6 +27,11 @@ class StorageService {
   // Onboarding
   bool get isOnboardingComplete => _prefs.getBool(_onboardingKey) ?? false;
   Future<void> setOnboardingComplete() => _prefs.setBool(_onboardingKey, true);
+  
+  // Data Reset
+  Future<void> clearAllData() async {
+    await _prefs.clear();
+  }
 
   // Theme
   bool get isDarkMode => _prefs.getBool(_themeModeKey) ?? false;
@@ -44,6 +49,14 @@ class StorageService {
         return null;
       }
     }).whereType<PetProfile>().toList();
+  }
+
+  List<PetProfile> getLivingPetProfiles() {
+    return getAllPetProfiles().where((p) => !p.isDeceased).toList();
+  }
+
+  List<PetProfile> getMemorialPetProfiles() {
+    return getAllPetProfiles().where((p) => p.isDeceased).toList();
   }
 
   /// Save a new pet profile (adds to list)
@@ -121,13 +134,17 @@ class StorageService {
 
   PetProfile? getActivePet() {
     final id = getActivePetId();
-    if (id == null) {
-      // Fallback to first pet
-      final pets = getAllPetProfiles();
-      if (pets.isNotEmpty) return pets.first;
-      return null;
+    if (id != null) {
+      final pet = getPetById(id);
+      if (pet != null && !pet.isDeceased) return pet;
     }
-    return getPetById(id);
+    // Fallback to first living pet
+    final pets = getLivingPetProfiles();
+    if (pets.isNotEmpty) {
+      setActivePetId(pets.first.id);
+      return pets.first;
+    }
+    return null;
   }
 
   // ===== Backward compatibility =====

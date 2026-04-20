@@ -5,6 +5,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 import '../models/pet_schedule.dart';
+import '../models/pet_profile.dart';
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -175,5 +176,57 @@ class NotificationService {
 
   Future<void> cancelAllNotifications() async {
     await _notificationsPlugin.cancelAll();
+  }
+
+  Future<void> scheduleBirthdayNotification(PetProfile pet) async {
+    if (pet.dateOfBirth == null) return;
+    
+    // Create a unique hash for this pet's birthday notification
+    final int id = 'birthday_${pet.id}'.hashCode.abs() & 0x7FFFFFFF;
+    
+    await requestPermissions();
+
+    final androidDetails = const AndroidNotificationDetails(
+      'pawpurelove_birthdays',
+      'Birthdays',
+      channelDescription: 'Yearly reminders for your pets\' birthdays.',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    const iosDetails = DarwinNotificationDetails(
+      presentAlert: true, presentBadge: true, presentSound: true,
+    );
+    final details = NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    final title = 'Happy Birthday ${pet.name}! 🎉';
+    final body = 'Today is ${pet.name}\'s special day! Give them lots of love and treats!';
+    
+    // Calculate the next birthday occurrence (always at 9:00 AM)
+    DateTime now = DateTime.now();
+    DateTime nextBirthday = DateTime(now.year, pet.dateOfBirth!.month, pet.dateOfBirth!.day, 9, 0); 
+    if (nextBirthday.isBefore(now)) {
+      nextBirthday = DateTime(now.year + 1, pet.dateOfBirth!.month, pet.dateOfBirth!.day, 9, 0);
+    }
+    
+    final tz.TZDateTime tzDate = tz.TZDateTime.from(nextBirthday, tz.local);
+
+    try {
+      await _notificationsPlugin.zonedSchedule(
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: tzDate,
+        notificationDetails: details,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        matchDateTimeComponents: DateTimeComponents.dateAndTime, // Triggers yearly on same month/day/time
+      );
+    } catch (e) {
+      debugPrint('Failed to schedule birthday notification: $e');
+    }
+  }
+  
+  Future<void> cancelBirthdayNotification(String petId) async {
+    final int id = 'birthday_$petId'.hashCode.abs() & 0x7FFFFFFF;
+    await _notificationsPlugin.cancel(id: id);
   }
 }
