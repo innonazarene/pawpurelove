@@ -51,7 +51,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
   Future<void> _initLocation() async {
     final storage = await StorageService.getInstance();
     setState(() {
-      _allPets = storage.getAllPetProfiles();
+      _allPets = storage.getLivingPetProfiles();
       _selectedPetIds.add(widget.petId);
     });
     // Check permission

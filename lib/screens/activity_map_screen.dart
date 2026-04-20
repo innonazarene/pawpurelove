@@ -115,8 +115,9 @@ class _ActivityMapScreenState extends State<ActivityMapScreen> {
               style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textBrown),
             ),
             const SizedBox(height: 16),
-            Expanded(
+            Flexible(
               child: ListView.builder(
+                shrinkWrap: true,
                 itemCount: cluster.logs.length,
                 itemBuilder: (context, index) {
                   final log = cluster.logs[index];

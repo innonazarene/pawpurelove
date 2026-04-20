@@ -190,13 +190,16 @@ class _MemoryScreenState extends State<MemoryScreen> {
         ],
       ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'memory_fab',
-        onPressed: () => _addMemory(CareType.note),
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Add Memory'),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 80),
+        child: FloatingActionButton.extended(
+          heroTag: 'memory_fab',
+          onPressed: () => _addMemory(CareType.note),
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('Add Memory'),
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+        ),
       ),
     );
   }

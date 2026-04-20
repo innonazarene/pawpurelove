@@ -124,13 +124,16 @@ class _HealthScreenState extends State<HealthScreen> with SingleTickerProviderSt
         ),
       ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'health_fab',
-        onPressed: _showAddHealthLog,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Add Record'),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 80),
+        child: FloatingActionButton.extended(
+          heroTag: 'health_fab',
+          onPressed: _showAddHealthLog,
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('Add Record'),
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+        ),
       ),
     );
   }

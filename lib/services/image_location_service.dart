@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class ImageLocationService {
   static final ImagePicker _picker = ImagePicker();
@@ -77,6 +78,32 @@ class ImageLocationService {
 
       if (pickedFile == null) return null;
 
+      final CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop Image',
+            toolbarColor: Colors.black87,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.square,
+            lockAspectRatio: false,
+          ),
+          IOSUiSettings(
+            title: 'Crop Image',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: WebPresentStyle.dialog,
+            size: CropperSize(
+              width: 560,
+              height: 350,
+            ),
+          ),
+        ],
+      );
+
+      if (croppedFile == null) return null;
+
       // Save to app directory
       final appDir = await getApplicationDocumentsDirectory();
       final imagesDir = Directory('${appDir.path}/PawureLove_images');
@@ -85,7 +112,7 @@ class ImageLocationService {
       }
 
       final fileName = 'img_${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final savedFile = await File(pickedFile.path).copy('${imagesDir.path}/$fileName');
+      final savedFile = await File(croppedFile.path).copy('${imagesDir.path}/$fileName');
       return savedFile.path;
     } catch (e) {
       debugPrint('Error picking image: $e');

@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
+import 'dart:typed_data';
+import 'package:file_saver/file_saver.dart';
 
 import '../theme/app_theme.dart';
 import '../models/pet_profile.dart';
@@ -66,26 +67,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
         csvContent += "$date,$petName,$category,$title,$notes,$location\n";
       }
 
-      Directory? dir;
-      if (Platform.isAndroid || Platform.isIOS) {
-        dir = await getApplicationDocumentsDirectory();
-      } else {
-        dir = await getDownloadsDirectory() ?? await getApplicationDocumentsDirectory();
-      }
+      Uint8List bytes = Uint8List.fromList(csvContent.codeUnits);
+      String fileName = 'pawpurelove_export_${DateTime.now().millisecondsSinceEpoch}';
 
-      final file = File('${dir.path}/pawpurelove_export_${DateTime.now().millisecondsSinceEpoch}.csv');
-      await file.writeAsString(csvContent);
+      final savedPath = await FileSaver.instance.saveAs(
+        name: fileName,
+        bytes: bytes,
+        fileExtension: 'csv',
+        mimeType: MimeType.csv,
+      );
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Exported successfully to: ${file.path}'),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          duration: const Duration(seconds: 4),
-        ),
-      );
+      
+      // savedPath might be empty on some platforms if user canceled, but typically it returns a path
+      if (savedPath != null && savedPath.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Exported successfully to: $savedPath'),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
