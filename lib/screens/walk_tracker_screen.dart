@@ -424,9 +424,7 @@ class _WalkTrackerScreenState extends State<WalkTrackerScreen> {
                     child: Container(
                       width: 65,
                       decoration: BoxDecoration(
-                        color: AppColors.surfaceCard.withValues(alpha: 0.8),
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)],
+                        color: Colors.transparent,
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: ListView.builder(

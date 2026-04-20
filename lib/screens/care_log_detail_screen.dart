@@ -118,7 +118,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
               icon: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.9),
+                  color: AppColors.surfaceCard.withValues(alpha: 0.9),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.arrow_back_rounded, size: 20),
@@ -130,7 +130,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                 icon: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: AppColors.surfaceCard.withValues(alpha: 0.9),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.edit_rounded, size: 20, color: AppColors.primary),
@@ -141,7 +141,7 @@ class _CareLogDetailScreenState extends State<CareLogDetailScreen> {
                 icon: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: AppColors.surfaceCard.withValues(alpha: 0.9),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.delete_outline_rounded, size: 20, color: AppColors.error),
